@@ -1,5 +1,5 @@
 // Service worker Si DARA – tampilan offline + menampilkan notifikasi pengingat (Firebase Cloud Messaging)
-const VERSI = 'sidara-v2';
+const VERSI = 'sidara-v3';
 const FILES = ['./', './index.html', './config.js', './manifest.json', './konfirmasi.html',
   './icons/icon-192.png', './icons/icon-512.png', './icons/badge-72.png',
   './icons/logo-donggala.png', './icons/logo-poltekkes-sby.png'];
