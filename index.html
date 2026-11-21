@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#e6196b">
+<title>Si DARA – Dara Sehat, Masa Depan Hebat</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<script src="config.js"></script>
+<style>
+:root{
+  --pink:#ff2e7a; --pink2:#e6196b; --pinkt:#c2185b; --ungu:#a78bdb; --ungu2:#7c5cc4; --muda:#ffe4ef; --muda2:#fff5f9; --lav:#f1ebfb;
+  --hijau:#047857; --hijau-bg:#d1fae5; --kuning:#b45309; --kuning-bg:#fef3c7; --merah:#e11d48;
+  --abu:#6b7280; --abu2:#ececf2; --teks:#1f2937; --bg:#fdf7fb; --r:16px; --bayang:0 1px 3px rgba(80,20,60,.08),0 1px 2px rgba(80,20,60,.05);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--teks);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:15px;line-height:1.45}
+button,input,select,textarea{font:inherit}
+.hidden{display:none!important}
+header.top{position:sticky;top:0;z-index:20;background:linear-gradient(120deg,var(--pink) 0%,#d9479a 45%,var(--ungu2) 100%);color:#fff;padding:12px 16px;padding-top:max(12px,env(safe-area-inset-top));display:flex;align-items:center;gap:10px;box-shadow:0 2px 10px rgba(124,92,196,.25)}
+header.top .judul{flex:1;min-width:0}
+header.top h1{font-size:17px;margin:0}
+header.top small{opacity:.9;font-size:12px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.22);color:#fff;border:0;cursor:pointer}
+.chip .dot{width:8px;height:8px;border-radius:50%;background:#a7f3d0}.chip.off .dot{background:#fecaca}.chip.pending .dot{background:#fde68a}
+main{padding:14px 14px 96px;max-width:760px;margin:0 auto}
+nav.bawah{position:fixed;bottom:0;left:0;right:0;z-index:20;background:#fff;border-top:1px solid var(--abu2);display:flex;padding-bottom:env(safe-area-inset-bottom)}
+nav.bawah a{flex:1;text-align:center;padding:8px 2px 9px;font-size:11px;color:var(--abu);text-decoration:none;display:flex;flex-direction:column;align-items:center;gap:2px}
+nav.bawah a .ik{font-size:20px;line-height:1}
+nav.bawah a.aktif{color:var(--pink2);font-weight:700}
+.kartu{background:#fff;border-radius:var(--r);box-shadow:var(--bayang);padding:14px;margin-bottom:12px}
+.kartu h2{font-size:16px;margin:0 0 8px}.kartu h3{font-size:14px;margin:0 0 6px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:#fff;border-radius:var(--r);box-shadow:var(--bayang);padding:12px}
+.stat .n{font-size:24px;font-weight:800}.stat .l{font-size:12px;color:var(--abu)}
+.stat.ok .n{color:var(--hijau)}.stat.no .n{color:var(--merah)}
+.bar{height:10px;border-radius:99px;background:var(--abu2);overflow:hidden}
+.bar>i{display:block;height:100%;background:linear-gradient(90deg,var(--pink),var(--ungu));border-radius:99px}
+.baris{display:flex;align-items:center;gap:10px}
+.btn{border:0;border-radius:12px;padding:10px 14px;font-weight:700;cursor:pointer;background:var(--pink2);color:#fff;display:inline-flex;align-items:center;justify-content:center;gap:6px;text-decoration:none}
+.btn.sek{background:var(--muda);color:var(--pinkt)}
+.btn.ungu{background:var(--ungu2);color:#fff}
+.btn.lav{background:var(--lav);color:var(--ungu2)}
+.btn.hijau{background:#16a34a;color:#fff}
+.btn.garis{background:#fff;color:var(--teks);border:1px solid #e5e7eb}
+.btn.wa{background:#25d366;color:#fff}
+.btn.kecil{padding:7px 10px;font-size:13px;border-radius:10px}
+.btn.penuh{width:100%}
+.btn.besar{padding:18px;font-size:18px;border-radius:18px;box-shadow:0 8px 20px rgba(230,25,107,.3)}
+.btn:disabled{opacity:.45}
+label.f{display:block;font-size:13px;color:var(--abu);margin:10px 0 4px}
+input.i,select.i,textarea.i{width:100%;padding:10px 12px;border:1px solid #e3d7e3;border-radius:11px;background:#fff;color:var(--teks)}
+textarea.i{min-height:120px}
+.cek{display:flex;gap:10px;align-items:flex-start;margin-top:12px;font-size:13px}
+.cek input{width:20px;height:20px;accent-color:var(--pink2);flex:0 0 auto;margin-top:1px}
+.daftar .item{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f4eef3}
+.daftar .item:last-child{border-bottom:0}
+.daftar .info{flex:1;min-width:0}.daftar .nm{font-weight:700}.daftar .sub{font-size:12px;color:var(--abu)}
+.lencana{display:inline-block;font-size:11px;padding:2px 8px;border-radius:99px;background:var(--abu2);margin-left:4px;font-weight:600}
+.lencana.ok{background:var(--hijau-bg);color:var(--hijau)}.lencana.kng{background:var(--kuning-bg);color:var(--kuning)}.lencana.mr{background:var(--muda);color:var(--pinkt)}.lencana.ug{background:var(--lav);color:var(--ungu2)}
+.tab{display:flex;gap:6px;background:#f2e9f1;padding:4px;border-radius:13px;margin-bottom:12px}
+.tab button{flex:1;border:0;background:transparent;padding:8px 4px;border-radius:10px;font-weight:700;color:var(--abu);cursor:pointer;font-size:13px}
+.tab button.aktif{background:#fff;color:var(--pink2);box-shadow:var(--bayang)}
+.filter{display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap}.filter select,.filter input{flex:1;min-width:120px}
+.kosong{text-align:center;color:var(--abu);padding:24px 8px}
+.aksi{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+.titik{display:inline-block;width:14px;height:14px;border-radius:4px;background:var(--abu2);margin-right:3px}.titik.ok{background:var(--pink)}.titik.no{background:#e5dcea}
+table.rk{width:100%;border-collapse:collapse;font-size:13px}
+table.rk th,table.rk td{padding:7px 6px;border-bottom:1px solid #f4eef3;text-align:center}
+table.rk th:first-child,table.rk td:first-child{text-align:left}table.rk th{font-size:11px;color:var(--abu)}
+.skala{overflow-x:auto}
+.modal{position:fixed;inset:0;background:rgba(40,16,40,.45);z-index:50;display:flex;align-items:flex-end;justify-content:center}
+.modal .isi{background:#fff;width:100%;max-width:560px;max-height:92vh;overflow:auto;border-radius:20px 20px 0 0;padding:16px 16px calc(16px + env(safe-area-inset-bottom))}
+@media(min-width:640px){.modal{align-items:center}.modal .isi{border-radius:20px}}
+.modal .kepala{display:flex;align-items:center;margin-bottom:6px}.modal .kepala h2{flex:1;margin:0;font-size:17px}
+.x{border:0;background:var(--abu2);width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer}
+.toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:#2b1530;color:#fff;padding:10px 16px;border-radius:12px;font-size:14px;z-index:60;max-width:90%;text-align:center}
+.banner{border-radius:13px;padding:10px 12px;font-size:13px;margin-bottom:12px}
+.banner.info{background:#f1ebfb;color:#4c1d95}.banner.warn{background:var(--kuning-bg);color:#92400e}.banner.mr{background:var(--muda);color:var(--pinkt)}.banner.ok{background:var(--hijau-bg);color:#065f46}
+.kecil{font-size:12px;color:var(--abu)}.sep{height:1px;background:#f4eef3;margin:12px 0}
+/* sambutan */
+.sambut{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:22px;max-width:440px;margin:0 auto}
+.logos{display:flex;align-items:center;justify-content:center;gap:14px}
+.logos img.dg{height:58px}.logos img.pk{height:38px}
+.logos.pil{background:#fff;border-radius:40px;padding:6px 18px;box-shadow:var(--bayang);width:max-content;margin:0 auto 18px}
+.logo{width:84px;height:84px;border-radius:24px;display:block;margin:0 auto 10px;box-shadow:0 10px 24px rgba(230,25,107,.3)}
+.sambut h1{text-align:center;margin:0;font-size:34px;background:linear-gradient(90deg,var(--pink2),var(--ungu2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sambut .tg{text-align:center;color:var(--abu);margin:4px 0 20px}
+.pilihan{display:block;width:100%;text-align:left;border:0;border-radius:18px;padding:16px;margin-bottom:12px;cursor:pointer;box-shadow:var(--bayang);background:#fff}
+.pilihan b{display:block;font-size:16px}.pilihan span{font-size:13px;color:var(--abu)}
+.pilihan.utama{background:linear-gradient(120deg,var(--pink),var(--ungu2));color:#fff}.pilihan.utama span{color:#ffe4ef}
+.pilihan .em{float:right;font-size:28px}
+.dev{text-align:center;font-size:11px;color:var(--abu);margin-top:16px;line-height:1.5}.dev b{color:var(--pinkt)}
+/* remaja */
+.hero{background:linear-gradient(135deg,var(--pink) 0%,#d9479a 50%,var(--ungu2) 100%);color:#fff;border-radius:22px;padding:18px;margin-bottom:12px;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;right:-30px;top:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.12)}
+.hero h2{margin:0 0 4px;font-size:20px}.hero p{margin:0;opacity:.95;font-size:14px}
+.status-minum{text-align:center;padding:18px 14px}
+.status-minum .em{font-size:52px;line-height:1}
+.status-minum h3{margin:8px 0 4px;font-size:18px}
+.streak{display:flex;align-items:center;gap:12px}
+.streak .api{font-size:40px}.streak .n{font-size:30px;font-weight:800;color:var(--pink2)}
+.badges{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
+.bdg{text-align:center;border-radius:14px;padding:10px 4px;background:#f7f2f7;color:#a29aa8;font-size:11px;font-weight:700}
+.bdg .e{font-size:28px;display:block;filter:grayscale(1);opacity:.5}
+.bdg.dapat{background:linear-gradient(160deg,#fff0f6,#efe7fb);color:var(--ungu2)}.bdg.dapat .e{filter:none;opacity:1}
+.kal{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.kal div{border-radius:14px;padding:10px 4px;text-align:center;font-size:12px;background:#f7f2f7;color:#a29aa8}
+.kal div b{display:block;font-size:20px}
+.kal div.ok{background:linear-gradient(160deg,var(--pink),var(--ungu2));color:#fff}
+.kal div.ini{outline:2px dashed var(--pink2)}
+.akses{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.akses button{border:0;background:#fff;border-radius:16px;padding:14px 8px;box-shadow:var(--bayang);font-weight:700;color:var(--teks);cursor:pointer}
+.akses button span{display:block;font-size:26px;margin-bottom:4px}
+/* edukasi */
+.q{padding:10px 0;border-bottom:1px solid #f4eef3}.q .t{font-weight:500;margin-bottom:6px}
+.q .yn{display:flex;gap:8px}
+.q .yn button{flex:1;padding:8px;border-radius:10px;border:1px solid #e3d7e3;background:#fff;cursor:pointer;font-weight:700;color:var(--abu)}
+.q .yn button.pilih.ya{background:var(--muda);border-color:var(--pink2);color:var(--pinkt)}
+.q .yn button.pilih.tdk{background:#ecfdf5;border-color:#10b981;color:var(--hijau)}
+.grp{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--ungu2);font-weight:800;margin:14px 0 2px}
+.hasil{border-radius:14px;padding:14px;margin-top:12px}.hasil.rendah{background:var(--hijau-bg);color:#064e3b}.hasil.sedang{background:var(--kuning-bg);color:#78350f}.hasil.tinggi{background:#fee2e2;color:#7f1d1d}
+.hasil h3{margin:0 0 4px;font-size:17px}
+.mf{perspective:1000px;margin-bottom:10px;cursor:pointer}
+.mf .dlm{position:relative;transition:transform .5s;transform-style:preserve-3d;min-height:150px}
+.mf.balik .dlm{transform:rotateY(180deg)}
+.mf .sisi{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:16px;padding:14px;box-shadow:var(--bayang);display:flex;flex-direction:column}
+.mf .depan{background:#fff;border-left:5px solid var(--pink)}
+.mf .belakang{background:#f3effc;border-left:5px solid var(--ungu2);transform:rotateY(180deg)}
+.mf .lbl{font-size:11px;font-weight:800;letter-spacing:.06em;margin-bottom:6px}.mf .depan .lbl{color:var(--pink2)}.mf .belakang .lbl{color:var(--ungu2)}
+.mf .tx{font-size:15px;flex:1}.mf .depan .tx{font-weight:700}.mf .hint{font-size:11px;color:var(--abu);margin-top:6px}
+.menu .m{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid #f4eef3}.menu .m:last-child{border-bottom:0}
+.menu .m .e{font-size:34px}.menu .m b{display:block}.menu .m p{margin:2px 0 0;font-size:13px;color:#4b5563}
+</style>
+</head>
+<body>
+
+<!-- ============ SAMBUTAN ============ -->
+<section id="vSambut" class="sambut hidden">
+  <div class="logos pil"><img class="dg" src="icons/logo-donggala.png" alt="Kabupaten Donggala"><img class="pk" src="icons/logo-poltekkes-sby.png" alt="Poltekkes Kemenkes Surabaya"></div>
+  <img src="icons/icon-192.png" class="logo" alt="">
+  <h1>Si DARA</h1>
+  <p class="tg"><b>Dara Sehat, Masa Depan Hebat</b><br>Satu Tablet Sepekan! · <span class="wil"></span></p>
+  <button class="pilihan utama" onclick="bukaDaftar()"><span class="em">👧</span><b>Saya Remaja Putri</b><span>Daftar sekali, lalu catat minum TTD-mu setiap Jumat</span></button>
+  <button class="pilihan" onclick="tampilLayar('vLogin')"><span class="em">🩺</span><b>Saya Petugas</b><span>PJ rematri puskesmas, guru/UKS, atau admin Dinkes</span></button>
+  <button class="pilihan" onclick="masukTamu()"><span class="em">📚</span><b>Edukasi saja</b><span>Cek potensi anemia, mitos & fakta TTD, menu khas Donggala</span></button>
+  <button class="btn garis kecil" style="margin:4px auto 0;display:flex" onclick="bukaPulihkan()">Pindah HP? Masuk dengan kode pemulihan</button>
+  <p class="dev">Dinas Kesehatan Kabupaten Donggala × Poltekkes Kemenkes Surabaya<br>Developed by <b>Fahmi Hafid</b> (Poltekkes Kemenkes Surabaya)<br>dan <b>Manjilala</b> (Poltekkes Kemenkes Makassar)</p>
+</section>
+
+<!-- ============ LOGIN PETUGAS ============ -->
+<section id="vLogin" class="sambut hidden">
+  <div class="logos pil"><img class="dg" src="icons/logo-donggala.png" alt=""><img class="pk" src="icons/logo-poltekkes-sby.png" alt=""></div>
+  <h1 style="font-size:26px">Masuk Petugas</h1>
+  <p class="tg">PJ Rematri · Guru/UKS · Admin Dinkes</p>
+  <div class="kartu">
+    <label class="f">Username</label><input id="lgUser" class="i" autocomplete="username" autocapitalize="none">
+    <label class="f">PIN</label><input id="lgPin" class="i" type="password" inputmode="numeric" autocomplete="current-password">
+    <div style="height:12px"></div><button class="btn penuh" id="lgBtn">Masuk</button>
+    <p id="lgMsg" class="kecil" style="text-align:center;margin:10px 0 0"></p>
+  </div>
+  <button class="btn garis penuh" id="lgDemo">Coba Mode Demo Petugas</button>
+  <div style="height:8px"></div><button class="btn sek penuh" onclick="tampilLayar('vSambut')">← Kembali</button>
+  <p class="kecil" style="text-align:center;margin-top:12px">Login pertama wajib tersambung internet. Setelah itu aplikasi tetap bisa dipakai tanpa internet.</p>
+</section>
+
+<!-- ============ APP ============ -->
+<div id="vApp" class="hidden">
+  <header class="top">
+    <div class="judul"><h1 id="hdJudul">Si DARA</h1><small id="hdSub"></small></div>
+    <button class="chip" id="chipSync" onclick="bukaPengaturan()"><span class="dot"></span><span id="chipTx">Online</span></button>
+  </header>
+  <main id="isi"></main>
+  <nav class="bawah" id="navBawah"></nav>
+</div>
+
+<div id="modal" class="modal hidden" onclick="if(event.target===this)tutupModal()"><div class="isi" id="modalIsi"></div></div>
+<div id="toast" class="toast hidden"></div>
+
+<script>
+'use strict';
+/* =================================================================
+   UTILITAS
+   ================================================================= */
+const CFG=Object.assign({API_URL:'',WILAYAH:'',FIREBASE:{},VAPID_KEY:''},window.DARA_CONFIG||{});
+const $=s=>document.querySelector(s);
+const K={mode:'dara_mode',tpl:'dara_tpl',demo:'dara_demo',master:'dara_master',
+  // petugas
+  user:'dara_user',owner:'dara_owner',data:'dara_data',out:'dara_outbox',sync:'dara_lastsync',offline:'dara_offline',
+  // remaja
+  rem:'dara_remaja'};
+const TABEL=['Sekolah','Sasaran','Log_Minum','Log_Pengingat','Log_Skrining','Puskesmas'];
+function muat(k,d){try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}}
+function simpan(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){toast('Penyimpanan HP penuh/terblokir')}}
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function uid(p){return p+Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+function acak(n){const a='abcdefghjkmnpqrstuvwxyz23456789';let t='';crypto.getRandomValues(new Uint8Array(n)).forEach(b=>t+=a[b%a.length]);return t}
+function nowIso(){return new Date().toISOString()}
+function pad(n){return String(n).padStart(2,'0')}
+function ymd(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())}
+function tglIndo(s,panjang){if(!s)return'';return new Date(s+'T00:00:00').toLocaleDateString('id-ID',{day:'numeric',month:panjang?'long':'short',year:'numeric'})}
+function jumatDari(d){d=new Date(d);d.setHours(0,0,0,0);d.setDate(d.getDate()-((d.getDay()-5+7)%7));return ymd(d)}
+function jumatIni(){return jumatDari(new Date())}
+function jumatBerikut(){const d=new Date(jumatIni()+'T00:00:00');d.setDate(d.getDate()+7);return ymd(d)}
+function daftarJumat(n){const o=[];const d=new Date(jumatIni()+'T00:00:00');for(let i=0;i<n;i++){o.push(ymd(d));d.setDate(d.getDate()-7)}return o}
+function hari(){return new Date().getDay()}
+function normWA(n){let s=String(n||'').replace(/\D/g,'');if(!s)return'';if(s.startsWith('0'))s='62'+s.slice(1);else if(s.startsWith('8'))s='62'+s;return s}
+async function sha(s){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+let tT;function toast(m,ms){const t=$('#toast');t.textContent=m;t.classList.remove('hidden');clearTimeout(tT);tT=setTimeout(()=>t.classList.add('hidden'),ms||2600)}
+function bukaModal(h){$('#modalIsi').innerHTML=h;$('#modal').classList.remove('hidden')}
+function tutupModal(){$('#modal').classList.add('hidden')}
+async function api(body){const r=await fetch(CFG.API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(body)});return r.json()}
+document.querySelectorAll('.wil').forEach(e=>e.textContent=CFG.WILAYAH);
+
+let MODE=muat(K.mode,null);   // 'remaja' | 'petugas' | 'tamu' | null
+let DEMO=muat(K.demo,false);
+let STATE={jumat:jumatIni(),sekolah:'',kelas:'',tab:'belum',cari:'',edTab:'skrining',sTab:'aktif'};
+
+function tampilLayar(id){['vSambut','vLogin','vApp'].forEach(x=>$('#'+x).classList.toggle('hidden',x!==id))}
+
+/* =================================================================
+   BAGIAN BERSAMA: EDUKASI
+   ================================================================= */
+const SKR=[
+ {g:'Keluhan yang dirasakan'},
+ {k:'g1',b:2,t:'Sering merasa lemah, letih, lesu, atau cepat capek walau aktivitas biasa'},
+ {k:'g2',b:2,t:'Sering pusing atau mata berkunang-kunang, terutama saat berdiri dari duduk'},
+ {k:'g3',b:1,t:'Sulit konsentrasi atau mudah mengantuk saat belajar'},
+ {k:'g4',b:2,t:'Napas terasa sesak atau jantung berdebar saat aktivitas ringan (naik tangga, jalan cepat)'},
+ {g:'Tanda yang terlihat (cek di cermin atau dibantu petugas)'},
+ {k:'t1',b:3,t:'Bagian dalam kelopak mata bawah tampak pucat (tidak merah muda)'},
+ {k:'t2',b:2,t:'Telapak tangan atau kuku tampak pucat'},
+ {g:'Kebiasaan & faktor risiko'},
+ {k:'r1',b:2,t:'Haid lebih dari 7 hari, atau darah haid sangat banyak (sering ganti pembalut)'},
+ {k:'r2',b:1,t:'Makan lauk hewani (ikan, daging, hati, telur) kurang dari 3 kali seminggu'},
+ {k:'r3',b:1,t:'Sering minum teh atau kopi bersamaan atau dekat waktu makan'},
+ {k:'r4',b:2,t:'Tidak rutin minum TTD setiap minggu dalam 3 bulan terakhir'},
+ {k:'r5',b:1,t:'Sering melewatkan makan atau sedang diet ketat'}];
+let JAWAB={};
+function hitungSkrining(){let s=0;SKR.forEach(q=>{if(q.k&&JAWAB[q.k]==='ya')s+=q.b});let k=s>=10?'tinggi':s>=5?'sedang':'rendah';if(JAWAB.t1==='ya'&&k==='rendah')k='sedang';return{skor:s,kat:k}}
+const SARAN={rendah:{j:'Potensi anemia RENDAH',p:'Pertahankan! Tetap minum 1 tablet TTD setiap Jumat, makan lauk hewani dan buah, serta hindari teh/kopi dekat waktu makan.'},
+ sedang:{j:'Potensi anemia SEDANG',p:'Ada beberapa tanda atau risiko anemia. Rutin minum TTD tiap Jumat, perbaiki pola makan, dan sebaiknya periksa kadar Hb di puskesmas atau UKS.'},
+ tinggi:{j:'Potensi anemia TINGGI',p:'Banyak tanda yang mengarah ke anemia. Segera periksa kadar hemoglobin (Hb) di puskesmas atau ke petugas UKS. Jangan berhenti minum TTD.'}};
+const MITOS=[
+ ['Minum TTD bikin badan gemuk.','TTD berisi zat besi dan asam folat, tidak mengandung kalori. Nafsu makan bisa membaik karena badan lebih bugar, tapi TTD sendiri tidak membuat gemuk.'],
+ ['TTD bisa menyebabkan darah tinggi (hipertensi).','"Tambah darah" artinya membantu tubuh membentuk hemoglobin (Hb), bukan menaikkan tekanan darah.'],
+ ['TTD cukup diminum kalau sedang lemas atau pucat saja.','TTD diminum rutin 1 tablet setiap minggu sepanjang tahun, termasuk saat merasa sehat. Cadangan zat besi hilang setiap haid.'],
+ ['Kalau badan terasa segar, berarti tidak anemia.','Anemia sering tanpa gejala. Satu-satunya cara memastikan adalah cek kadar Hb.'],
+ ['Kotoran (BAB) jadi hitam setelah minum TTD itu berbahaya.','Itu normal. Sisa zat besi yang tidak terserap membuat warna feses gelap.'],
+ ['Mual setelah minum TTD berarti tubuh tidak cocok.','Mual bisa dikurangi dengan sarapan dulu atau minum TTD sesudah makan. Biasanya keluhan berkurang setelah beberapa minggu.'],
+ ['Minum TTD dengan teh, kopi, atau susu tidak masalah.','Teh, kopi, dan susu menghambat penyerapan zat besi. Minum TTD dengan air putih atau jus buah, beri jeda 1–2 jam dari teh/kopi/susu.'],
+ ['Kalau sudah makan bergizi, tidak perlu minum TTD.','Kebutuhan zat besi remaja putri tinggi karena masa pertumbuhan dan haid. TTD melengkapi makanan bergizi, bukan menggantikannya.'],
+ ['TTD membuat haid jadi banyak atau tidak teratur.','TTD tidak mengganggu siklus haid. Justru TTD membantu mengganti zat besi yang hilang saat haid.'],
+ ['TTD hanya untuk ibu hamil.','Remaja putri juga sasaran utama program TTD, supaya kelak siap menjadi ibu yang sehat.'],
+ ['Tablet yang berbau amis berarti sudah rusak.','Bau khas berasal dari zat besi. Yang perlu diwaspadai: tablet berubah warna, lembek, lengket, atau kedaluwarsa. Minta ganti ke petugas.'],
+ ['Kalau lupa minum, minum dua sekaligus saja.','Jangan menggandakan dosis. Minum 1 tablet begitu ingat, lalu lanjutkan jadwal Jumat berikutnya.']];
+const MENU=[
+ ['🐟','Ikan cakalang bakar + uta kelo + jeruk','Ikan adalah sumber zat besi hewani yang mudah diserap. Sayur kelor ditambah perasan jeruk membantu penyerapan zat besi dari sayuran.'],
+ ['🍲','Kaledo (sup kaki sapi khas Sulteng)','Pilih juga bagian dagingnya, bukan hanya kuah dan sumsumnya. Daging sapi kaya zat besi hewani. Tutup dengan buah segar.'],
+ ['🍗','Hati ayam tumis + nasi + pepaya','Hati adalah salah satu sumber zat besi tertinggi. Pepaya kaya vitamin C.'],
+ ['🥚','Telur dadar + tumis daun singkong + jeruk','Murah dan mudah. Kombinasi lauk hewani, sayur hijau, dan buah asam membuat zat besi lebih banyak terserap.'],
+ ['🌿','Sayur bening kelor & jagung + ikan teri','Kelor (marungga) kaya zat besi dan vitamin. Ikan teri dimakan dengan tulangnya, sumber protein dan mineral.'],
+ ['🥤','Minuman pendamping','Pilih air putih atau jus jeruk/jambu saat makan dan saat minum TTD. Tunda teh, kopi, dan susu 1–2 jam.']];
+function vEdukasi(){
+  let h='';
+  if(MODE==='tamu')h+=`<button class="btn garis kecil" style="margin-bottom:10px" onclick="keMulai()">← Kembali</button>`;
+  h+=`<div class="tab"><button class="${STATE.edTab==='skrining'?'aktif':''}" onclick="STATE.edTab='skrining';render()">🩺 Cek Anemia</button><button class="${STATE.edTab==='mitos'?'aktif':''}" onclick="STATE.edTab='mitos';render()">💡 Mitos</button><button class="${STATE.edTab==='menu'?'aktif':''}" onclick="STATE.edTab='menu';render()">🍽 Menu</button></div>`;
+  h+=STATE.edTab==='mitos'?htmlMitos():STATE.edTab==='menu'?htmlMenu():htmlSkrining();
+  $('#isi').innerHTML=h;
+}
+function htmlSkrining(){
+  const terj=SKR.filter(q=>q.k&&JAWAB[q.k]).length,tot=SKR.filter(q=>q.k).length;
+  let h=`<div class="kartu"><h2>Cek potensi anemia</h2><p class="kecil">Jawab sesuai kondisi 1 bulan terakhir. Ini hanya melihat <b>potensi</b>, bukan diagnosis. Anemia dipastikan dengan pemeriksaan kadar Hb (remaja putri: anemia bila Hb &lt; 12 g/dL).</p>`;
+  if(MODE==='petugas'&&USER&&USER.peran!=='GURU')h+=`<label class="f">Simpan untuk sasaran (opsional)</label><select class="i" onchange="STATE.skrSasaran=this.value"><option value="">— tidak disimpan —</option>${sasaranAktif().map(s=>`<option value="${s.id}" ${s.id===STATE.skrSasaran?'selected':''}>${esc(s.nama)} – ${esc(namaSekolah(s.sekolahId))}</option>`).join('')}</select>`;
+  SKR.forEach(q=>{if(q.g){h+=`<div class="grp">${q.g}</div>`;return}const v=JAWAB[q.k];
+    h+=`<div class="q"><div class="t">${q.t}</div><div class="yn"><button class="${v==='ya'?'pilih ya':''}" onclick="JAWAB['${q.k}']='ya';render()">Ya</button><button class="${v==='tidak'?'pilih tdk':''}" onclick="JAWAB['${q.k}']='tidak';render()">Tidak</button></div></div>`});
+  if(terj<tot)h+=`<p class="kecil" style="margin-top:12px">${terj}/${tot} pertanyaan terjawab</p>`;
+  else{const r=hitungSkrining(),s=SARAN[r.kat];
+    h+=`<div class="hasil ${r.kat}"><h3>${s.j}</h3><div class="kecil" style="color:inherit;opacity:.8">Skor ${r.skor} dari 20</div><p style="margin:8px 0 0">${s.p}</p></div><div style="height:10px"></div>`;
+    if(MODE==='remaja')h+=`<button class="btn penuh" onclick="simpanSkriningRemaja()">💾 Simpan hasil cek</button><div style="height:8px"></div>${r.kat!=='rendah'?`<button class="btn wa penuh" onclick="chatPetugas('skrining')">💬 Konsultasi ke petugas</button><div style="height:8px"></div>`:''}`;
+    if(MODE==='petugas'&&STATE.skrSasaran)h+=`<button class="btn penuh" onclick="simpanSkriningPetugas()">💾 Simpan hasil ke data sasaran</button><div style="height:8px"></div>`;}
+  h+=`<button class="btn garis penuh" style="margin-top:10px" onclick="JAWAB={};STATE.skrSasaran='';render();scrollTo(0,0)">Ulangi</button></div>`;
+  return h;
+}
+function htmlMitos(){return`<p class="kecil">Ketuk kartu untuk melihat faktanya 👇</p>`+MITOS.map((m,i)=>`<div class="mf" onclick="this.classList.toggle('balik')"><div class="dlm"><div class="sisi depan"><div class="lbl">❌ MITOS #${i+1}</div><div class="tx">${m[0]}</div><div class="hint">Ketuk untuk lihat fakta</div></div><div class="sisi belakang"><div class="lbl">✅ FAKTA</div><div class="tx">${m[1]}</div></div></div></div>`).join('')}
+function htmlMenu(){return`<div class="kartu"><h2>Menu kaya zat besi khas Donggala</h2><p class="kecil">Kunci: <b>lauk hewani + sayur hijau + buah sumber vitamin C</b> dalam satu kali makan.</p><div class="menu">${MENU.map(m=>`<div class="m"><div class="e">${m[0]}</div><div><b>${m[1]}</b><p>${m[2]}</p></div></div>`).join('')}</div></div>`}
+new MutationObserver(()=>{document.querySelectorAll('.mf .dlm').forEach(d=>{const h=Math.max(...[...d.children].map(c=>c.scrollHeight));d.style.minHeight=Math.max(150,h)+'px'})}).observe(document.getElementById('isi'),{childList:true});
+
+/* =================================================================
+   NAVIGASI
+   ================================================================= */
+const NAV={
+ remaja:[['beranda','🏠','Beranda'],['kalender','📅','Kalender'],['edukasi','📚','Edukasi'],['profil','👧','Profil']],
+ petugas:[['beranda','🏠','Beranda'],['pengingat','💬','Pengingat'],['sasaran','👧','Sasaran'],['rekap','📊','Rekap'],['edukasi','📚','Edukasi']],
+ tamu:[]};
+function rute(){return(location.hash||'#beranda').slice(1)}
+function mulaiApp(){tampilLayar('vApp');const n=NAV[MODE]||[];$('#navBawah').innerHTML=n.map(x=>`<a href="#${x[0]}" data-v="${x[0]}"><span class="ik">${x[1]}</span>${x[2]}</a>`).join('');
+  $('#navBawah').classList.toggle('hidden',!n.length);$('#chipSync').classList.toggle('hidden',MODE==='tamu');
+  if(MODE==='tamu')location.hash='#edukasi';render()}
+window.addEventListener('hashchange',()=>{if(MODE)render()});
+function render(){
+  if(!MODE)return;
+  let r=rute();
+  const views=MODE==='remaja'?{beranda:rBeranda,kalender:rKalender,edukasi:vEdukasi,profil:rProfil}
+    :MODE==='tamu'?{edukasi:vEdukasi}:{beranda:pBeranda,pengingat:pPengingat,sasaran:pSasaran,rekap:pRekap,edukasi:vEdukasi};
+  if(!views[r])r=Object.keys(views)[0];
+  const JUD={beranda:MODE==='remaja'?'Si DARA':'Si DARA · Petugas',kalender:'Kalender Minum TTD',edukasi:'Edukasi',profil:'Profil Saya',pengingat:'Pengingat Jumat',sasaran:USER&&USER.peran==='GURU'?'Siswa':'Sasaran Remaja Putri',rekap:'Rekap Kepatuhan'};
+  $('#hdJudul').textContent=JUD[r];
+  $('#hdSub').textContent=MODE==='remaja'?(R&&R.profil?R.profil.nama.split(' ')[0]+' · Pkm '+R.profil.puskesmas:''):MODE==='tamu'?'Dara Sehat, Masa Depan Hebat':(USER?USER.nama+' · '+labelPeran():'');
+  document.querySelectorAll('nav.bawah a').forEach(a=>a.classList.toggle('aktif',a.dataset.v===r));
+  if(window._rLalu!==r){window._rLalu=r;scrollTo(0,0)}
+  views[r]();perbaruiChip();
+}
+function keMulai(){MODE=null;simpan(K.mode,null);location.hash='';tampilLayar('vSambut')}
+function masukTamu(){MODE='tamu';mulaiApp()}
+
+/* =================================================================
+   ======================  MODE REMAJA  ============================
+   ================================================================= */
+let R=muat(K.rem,null); // {id,token,profil,baru,minum:[],skrining:[],pkm:{},out:[],fcm,lastSync}
+function simpanR(){simpan(K.rem,R)}
+function minumR(j){const l=(R.minum||[]).find(x=>x.jumat===j);return l&&l.status==='sudah'?l:null}
+function streak(){let n=0;const jj=daftarJumat(60);for(let i=0;i<jj.length;i++){if(minumR(jj[i]))n++;else{if(i===0)continue;break}}return n}
+const BADGE=[[4,'💪','Dara Tangguh'],[8,'🌟','Dara Hebat'],[12,'👑','Dara Inspirasi']];
+
+async function muatMaster(){
+  if(DEMO)return muat(K.master,null);
+  if(navigator.onLine&&CFG.API_URL){try{const r=await fetch(CFG.API_URL+'?action=master');const j=await r.json();if(j.ok){simpan(K.master,j);return j}}catch(e){}}
+  return muat(K.master,null);
+}
+async function bukaDaftar(){
+  if(R&&R.id){MODE='remaja';simpan(K.mode,MODE);mulaiApp();return}
+  if(!CFG.API_URL){
+    bukaModal(`<div class="kepala"><h2>Server belum diatur</h2><button class="x" onclick="tutupModal()">×</button></div><p>URL server belum diisi di config.js. Untuk melihat contoh, coba mode demo remaja.</p><button class="btn penuh" onclick="tutupModal();demoRemaja()">Coba Demo Remaja</button>`);return}
+  const m=await muatMaster();
+  if(!m){toast('Pendaftaran pertama butuh internet. Coba lagi saat ada sinyal.',3500);return}
+  formDaftar(m);
+}
+function formDaftar(m){
+  tampilLayar('vApp');MODE='daftar';$('#navBawah').classList.add('hidden');$('#chipSync').classList.add('hidden');
+  $('#hdJudul').textContent='Daftar Si DARA';$('#hdSub').textContent='Isi sekali saja ya 😊';
+  $('#isi').innerHTML=`<div class="hero"><h2>Hai, Dara! 👋</h2><p>Daftar dulu supaya kamu bisa mencatat minum TTD dan dapat pengingat setiap Kamis & Jumat.</p></div>
+  <div class="kartu">
+  <label class="f">Nama lengkap *</label><input id="dNama" class="i" autocomplete="name">
+  <label class="f">Puskesmas wilayah sekolahmu *</label><select id="dPkm" class="i"><option value="">— pilih puskesmas —</option>${m.puskesmas.map(p=>`<option>${esc(p.nama)}</option>`).join('')}</select>
+  <label class="f">Sekolah *</label><select id="dSek" class="i"><option value="">— pilih puskesmas dulu —</option></select>
+  <input id="dSekBaru" class="i hidden" style="margin-top:6px" placeholder="Ketik nama sekolahmu, mis. SMPN 1 Banawa">
+  <label class="f">Kelas *</label><input id="dKelas" class="i" placeholder="mis. VIII A">
+  <label class="f">No. WA kamu (kalau ada)</label><input id="dWaR" class="i" inputmode="tel" placeholder="08…">
+  <label class="f">No. WA orang tua/wali *</label><input id="dWaO" class="i" inputmode="tel" placeholder="08…">
+  <label class="cek"><input type="checkbox" id="dIzin"> <span>Orang tua/wali saya sudah mengizinkan saya ikut program TTD dan memakai aplikasi Si DARA.</span></label>
+  <label class="cek"><input type="checkbox" id="dSetuju"> <span>Saya setuju data saya (nama, sekolah, kelas, nomor WA, catatan minum TTD) dipakai petugas puskesmas untuk program pencegahan anemia.</span></label>
+  <div style="height:14px"></div><button class="btn penuh besar" onclick="kirimDaftar()">Daftar 💖</button>
+  <div style="height:8px"></div><button class="btn garis penuh" onclick="keMulai()">Batal</button></div>`;
+  const pk=$('#dPkm'),sk=$('#dSek');
+  pk.onchange=()=>{const L=m.sekolah.filter(s=>s.puskesmas===pk.value).sort((a,b)=>a.nama.localeCompare(b.nama));
+    sk.innerHTML=`<option value="">— pilih sekolah —</option>`+L.map(s=>`<option value="${s.id}">${esc(s.nama)}</option>`).join('')+`<option value="__baru">Sekolahku tidak ada di daftar…</option>`;sk.onchange()};
+  sk.onchange=()=>$('#dSekBaru').classList.toggle('hidden',sk.value!=='__baru');
+}
+function kirimDaftar(){
+  const v=id=>$(id).value.trim();
+  const p={nama:v('#dNama'),puskesmas:v('#dPkm'),sekolahId:v('#dSek')==='__baru'?'':v('#dSek'),sekolahBaru:v('#dSek')==='__baru'?v('#dSekBaru'):'',kelas:v('#dKelas'),waRemaja:v('#dWaR'),waOrtu:v('#dWaO'),izinOrtu:$('#dIzin').checked,createdAt:nowIso()};
+  if(!p.nama||!p.puskesmas||!(p.sekolahId||p.sekolahBaru)||!p.kelas||!p.waOrtu){toast('Lengkapi data yang bertanda *');return}
+  if(!normWA(p.waOrtu)){toast('Nomor WA orang tua belum benar');return}
+  if(!$('#dIzin').checked||!$('#dSetuju').checked){toast('Centang kedua persetujuan dulu ya');return}
+  const m=muat(K.master,{sekolah:[]});const s=m.sekolah.find(x=>x.id===p.sekolahId);
+  p.namaSekolah=s?s.nama:p.sekolahBaru;p.status='belum terkirim';
+  R={id:uid('S'),token:acak(14),profil:p,baru:true,minum:[],skrining:[],pkm:{nama:p.puskesmas},out:[],fcm:'',lastSync:null};
+  simpanR();MODE='remaja';simpan(K.mode,MODE);location.hash='#beranda';mulaiApp();
+  toast('Pendaftaran tersimpan 💖');sinkronRemaja();
+  setTimeout(()=>tawarNotif(),1200);
+}
+function bukaPulihkan(){
+  bukaModal(`<div class="kepala"><h2>Masuk dengan kode pemulihan</h2><button class="x" onclick="tutupModal()">×</button></div>
+  <p class="kecil">Kode pemulihan ada di menu <b>Profil</b> di HP lamamu, atau minta ke PJ rematri puskesmas.</p>
+  <input id="kPul" class="i" placeholder="mis. k7m2q9xa4bcdef" autocapitalize="none">
+  <div style="height:10px"></div><button class="btn penuh" onclick="pulihkan()">Masuk</button>`);
+}
+async function pulihkan(){
+  const t=$('#kPul').value.trim().toLowerCase();if(t.length<10){toast('Kode belum lengkap');return}
+  if(!navigator.onLine||!CFG.API_URL){toast('Butuh internet untuk masuk dengan kode');return}
+  try{const j=await api({action:'remajaSync',id:'',token:t,ops:[]});
+    if(!j.ok){toast(j.pesan==='KODE_TIDAK_DITEMUKAN'?'Kode tidak ditemukan':'Gagal: '+j.pesan);return}
+    R={id:j.profil.id,token:t,profil:j.profil,baru:false,minum:j.minum,skrining:j.skrining,pkm:j.puskesmas,out:[],fcm:'',lastSync:nowIso()};
+    simpanR();tutupModal();MODE='remaja';simpan(K.mode,MODE);location.hash='#beranda';mulaiApp();toast('Selamat datang kembali, '+R.profil.nama.split(' ')[0]+' 💖');
+  }catch(e){toast('Gagal tersambung ke server')}
+}
+
+/* ---------- sinkron remaja ---------- */
+let rSyncJalan=false,rTimer=null;
+function jadwalR(){clearTimeout(rTimer);rTimer=setTimeout(sinkronRemaja,1200)}
+function tulisR(tabel,row){
+  if(tabel==='Log_Minum'){const i=R.minum.findIndex(x=>x.jumat===row.jumat);if(i>=0)R.minum[i]=row;else R.minum.push(row)}
+  else R.skrining.push(row);
+  if(!DEMO){R.out=R.out.filter(o=>!(o.tabel===tabel&&o.row.id===row.id));R.out.push({opId:uid('op'),tabel,row})}
+  simpanR();perbaruiChip();jadwalR();
+}
+async function sinkronRemaja(manual){
+  if(!R||DEMO){if(manual)toast(DEMO?'Mode demo: data tidak dikirim':'');return}
+  if(!CFG.API_URL||!navigator.onLine){perbaruiChip();if(manual)toast('Tidak ada internet. Data aman di HP dan dikirim otomatis nanti.');return}
+  if(rSyncJalan)return;rSyncJalan=true;perbaruiChip('sinkron');
+  try{
+    const body={action:'remajaSync',id:R.id,token:R.token,ops:R.out.slice(0,200),fcm:R.fcm||''};
+    if(R.baru)body.profil=R.profil;
+    const j=await api(body);
+    if(!j.ok){if(j.pesan==='AKUN_NONAKTIF'){toast('Akunmu dinonaktifkan petugas. Hubungi PJ rematri puskesmas.',5000)}else if(manual)toast('Gagal sinkron: '+j.pesan);return}
+    const ok=new Set(j.diterima||[]);R.out=R.out.filter(o=>!ok.has(o.opId));
+    R.baru=false;R.profil=j.profil;R.pkm=j.puskesmas;R.minum=j.minum||[];R.skrining=j.skrining||[];
+    R.out.forEach(o=>{if(o.tabel==='Log_Minum'){const i=R.minum.findIndex(x=>x.jumat===o.row.jumat);if(i>=0)R.minum[i]=o.row;else R.minum.push(o.row)}else R.skrining.push(o.row)});
+    R.lastSync=nowIso();simpanR();if(manual)toast('Sinkron berhasil ✅');render();
+  }catch(e){if(manual)toast('Gagal tersambung ke server')}
+  finally{rSyncJalan=false;perbaruiChip()}
+}
+
+/* ---------- tampilan remaja ---------- */
+function rBeranda(){
+  const p=R.profil,ja=jumatIni(),sudah=minumR(ja),hr=hari(),st=streak();
+  const besok=hr===4,jumat=hr===5;
+  let h='';
+  if(DEMO)h+=`<div class="banner warn">Mode demo – data contoh. <a href="#" onclick="keluarDemo();return false">Keluar demo</a></div>`;
+  if(p.status==='menunggu'||p.status==='belum terkirim')h+=`<div class="banner info">⏳ Pendaftaranmu sedang diverifikasi PJ Puskesmas ${esc(p.puskesmas)}. Kamu tetap bisa mencatat minum TTD.</div>`;
+  if(p.status==='ditolak')h+=`<div class="banner warn">Pendaftaranmu belum bisa diverifikasi. Silakan <a href="#" onclick="chatPetugas();return false">hubungi petugas</a>.</div>`;
+  h+=`<div class="hero"><h2>Hai, ${esc(p.nama.split(' ')[0])}! 👋</h2><p>${besok?'Besok Jumat, waktunya minum TTD! Jangan lupa sarapan dulu ya 🍳':jumat?'Hari ini Jumat! Sudah sarapan? Yuk minum TTD-mu 💊':'Dara sehat, masa depan hebat. Satu tablet sepekan! 💖'}</p></div>`;
+  h+=`<div class="kartu status-minum">`;
+  if(sudah)h+=`<div class="em">🎉</div><h3>Kamu sudah minum TTD!</h3><p class="kecil">Tercatat untuk Jumat, ${tglIndo(ja,1)}. ${besok?'Besok Jumat lagi, siapkan tabletmu ya.':'Sampai jumpa Jumat depan, '+tglIndo(jumatBerikut(),1)+'.'}</p>${besok?'':`<button class="btn garis kecil" onclick="batalMinum('${ja}')">Salah pencet? Batalkan</button>`}`;
+  else h+=`<div class="em">💊</div><h3>${jumat?'Waktunya minum TTD!':'TTD Jumat, '+tglIndo(ja)}</h3><p class="kecil">${jumat?'Minum 1 tablet sesudah sarapan, pakai air putih. Lalu ketuk tombol di bawah.':'Kamu belum mencatat minum TTD untuk Jumat ini. Kalau sudah minum, ketuk tombol di bawah.'}</p><button class="btn penuh besar" onclick="catatMinum()">💊 Saya sudah minum TTD</button>`;
+  h+=`</div>`;
+  const next=BADGE.find(b=>st<b[0]);
+  h+=`<div class="kartu"><div class="streak"><div class="api">🔥</div><div style="flex:1"><div class="n">${st} Jumat</div><div class="kecil">berturut-turut minum TTD${next?` · ${next[0]-st} lagi menuju <b>${next[2]}</b>`:' · semua badge terkumpul! 👑'}</div></div></div>
+  ${next?`<div class="bar" style="margin-top:10px"><i style="width:${Math.round(st/next[0]*100)}%"></i></div>`:''}
+  <div class="badges">${BADGE.map(b=>`<div class="bdg ${st>=b[0]||terbaik()>=b[0]?'dapat':''}"><span class="e">${b[1]}</span>${b[2]}<br><span style="font-weight:500">${b[0]}× berturut</span></div>`).join('')}</div></div>`;
+  h+=`<div class="akses"><button onclick="STATE.edTab='skrining';location.hash='#edukasi'"><span>🩺</span>Cek Anemia</button><button onclick="chatPetugas()"><span>💬</span>Chat Petugas</button><button onclick="STATE.edTab='mitos';location.hash='#edukasi'"><span>💡</span>Mitos & Fakta</button><button onclick="STATE.edTab='menu';location.hash='#edukasi'"><span>🍽</span>Menu Donggala</button></div>`;
+  const m=MITOS[(Math.floor(Date.now()/864e5))%MITOS.length];
+  h+=`<div class="kartu" style="background:linear-gradient(160deg,#fff,#f6f0fd)"><h3>💡 Tahukah kamu?</h3><p style="margin:0"><b>Mitos:</b> ${m[0]}<br><b style="color:var(--ungu2)">Fakta:</b> ${m[1]}</p></div>`;
+  if(!R.fcm&&!DEMO&&'Notification' in window&&Notification.permission!=='denied')h+=`<button class="btn lav penuh" onclick="tawarNotif(true)">🔔 Aktifkan pengingat Kamis & Jumat</button>`;
+  h+=logoKaki();
+  $('#isi').innerHTML=h;
+}
+function terbaik(){let best=0,cur=0;daftarJumat(60).reverse().forEach(j=>{if(minumR(j)){cur++;best=Math.max(best,cur)}else cur=0});return best}
+function catatMinum(){
+  const ja=jumatIni();
+  tulisR('Log_Minum',{id:R.id+'_'+ja,sasaranId:R.id,puskesmas:R.profil.puskesmas,jumat:ja,status:'sudah',sumber:'remaja',waktu:nowIso(),updatedBy:'remaja'});
+  const st=streak(),b=BADGE.find(x=>x[0]===st);
+  render();
+  if(b)bukaModal(`<div style="text-align:center;padding:10px"><div style="font-size:70px">${b[1]}</div><h2 style="margin:6px 0;color:var(--pink2)">Badge baru: ${b[2]}!</h2><p>Kamu sudah minum TTD ${st} Jumat berturut-turut. Tunjukkan badge ini ke guru UKS-mu ya! 💖</p><button class="btn penuh" onclick="tutupModal()">Yeay!</button></div>`);
+  else toast('Hebat! TTD Jumat ini tercatat 💪');
+}
+function batalMinum(j){if(!confirm('Batalkan catatan minum TTD Jumat ini?'))return;tulisR('Log_Minum',{id:R.id+'_'+j,sasaranId:R.id,puskesmas:R.profil.puskesmas,jumat:j,status:'batal',sumber:'remaja',waktu:nowIso(),updatedBy:'remaja'});render()}
+function rKalender(){
+  const jj=daftarJumat(16),n=jj.filter(minumR).length;
+  let h=`<div class="grid2"><div class="stat ok"><div class="n">${n}/16</div><div class="l">Jumat tercatat minum</div></div><div class="stat"><div class="n" style="color:var(--pink2)">${Math.round(n/16*100)}%</div><div class="l">Kepatuhan 16 minggu</div></div></div><div style="height:12px"></div>
+  <div class="kartu"><h2>16 Jumat terakhir</h2><div class="kal">${jj.slice().reverse().map(d=>`<div class="${minumR(d)?'ok':''} ${d===jumatIni()?'ini':''}"><b>${minumR(d)?'💊':'·'}</b>${d.slice(8)}/${d.slice(5,7)}</div>`).join('')}</div>
+  <p class="kecil" style="margin-top:10px">Kotak berwarna = sudah minum. Garis putus-putus = Jumat ini. Catatan dari guru (minum bersama) atau dari tautan WA juga ikut muncul di sini setelah sinkron.</p></div>
+  <div class="kartu"><h2>Badge-ku</h2><div class="badges">${BADGE.map(b=>`<div class="bdg ${terbaik()>=b[0]?'dapat':''}"><span class="e">${b[1]}</span>${b[2]}<br><span style="font-weight:500">${b[0]}× berturut</span></div>`).join('')}</div></div>`;
+  if(R.skrining&&R.skrining.length)h+=`<div class="kartu"><h2>Riwayat cek anemia</h2>${R.skrining.slice().sort((a,b)=>b.tanggal.localeCompare(a.tanggal)).map(x=>`<div class="kecil">${tglIndo(x.tanggal)} – skor ${esc(x.skor)} · <b>${esc(x.kategori)}</b></div>`).join('')}</div>`;
+  $('#isi').innerHTML=h;
+}
+function rProfil(){
+  const p=R.profil,pk=R.pkm||{};
+  const stLbl={aktif:'<span class="lencana ok">Terverifikasi</span>',menunggu:'<span class="lencana kng">Menunggu verifikasi</span>','belum terkirim':'<span class="lencana kng">Belum terkirim</span>',ditolak:'<span class="lencana mr">Belum disetujui</span>'}[p.status]||'';
+  const notif=!('Notification' in window)?'Tidak didukung di HP/browser ini':R.fcm?'✅ Aktif':Notification.permission==='denied'?'Diblokir – izinkan lewat pengaturan browser':'Belum aktif';
+  $('#isi').innerHTML=`<div class="kartu"><h2>${esc(p.nama)} ${stLbl}</h2>
+  <div class="kecil">${esc(p.namaSekolah||'')}${p.kelas?' · Kelas '+esc(p.kelas):''}<br>Puskesmas ${esc(p.puskesmas)}<br>WA orang tua: ${esc(p.waOrtu||'-')}</div></div>
+  <div class="kartu"><h2>💬 Konsultasi</h2><p class="kecil">Mau tanya soal haid, anemia, atau efek TTD? Chat langsung ke petugas Puskesmas ${esc(pk.nama||p.puskesmas)}.${pk.jamLayanan?'<br>Jam layanan: <b>'+esc(pk.jamLayanan)+'</b>':''}</p>
+  <button class="btn wa penuh" ${normWA(pk.waKonsultasi)?'':'disabled'} onclick="chatPetugas()">Chat Petugas via WhatsApp</button>${normWA(pk.waKonsultasi)?'':'<p class="kecil">Nomor konsultasi belum diatur puskesmas.</p>'}</div>
+  <div class="kartu"><h2>🔔 Pengingat</h2><p class="kecil">Status notifikasi: <b>${notif}</b><br>Pengingat muncul setiap <b>Kamis 18.30</b> (besok minum TTD & sarapan) dan <b>Jumat 06.30</b>.</p>
+  ${R.fcm?'':`<button class="btn lav penuh" onclick="tawarNotif(true)">Aktifkan notifikasi</button>`}</div>
+  <div class="kartu"><h2>🔑 Kode pemulihan</h2><p class="kecil">Simpan kode ini. Kalau ganti HP, pilih "Masuk dengan kode pemulihan".</p><div style="font-family:monospace;font-size:18px;letter-spacing:2px;background:var(--lav);padding:10px;border-radius:10px;text-align:center">${esc(R.token)}</div></div>
+  <div class="kartu"><h2>🔄 Sinkronisasi</h2><p class="kecil">${R.out.length?R.out.length+' catatan menunggu dikirim':'Semua catatan sudah terkirim'}${R.lastSync?' · terakhir '+new Date(R.lastSync).toLocaleString('id-ID'):''}</p><button class="btn sek penuh" onclick="sinkronRemaja(true)">Sinkron sekarang</button>
+  <div style="height:8px"></div><button class="btn garis penuh" onclick="keluarRemaja()">Keluar dari HP ini</button></div>${logoKaki()}`;
+}
+function chatPetugas(asal){
+  const pk=(R&&R.pkm)||{},p=R?R.profil:{};const no=normWA(pk.waKonsultasi);
+  if(!no){toast('Nomor konsultasi puskesmas belum diatur');return}
+  const teks=`Halo Kak petugas Puskesmas ${pk.nama||p.puskesmas||''} 👋\nSaya ${p.nama||''}${p.namaSekolah?' dari '+p.namaSekolah:''}${p.kelas?' kelas '+p.kelas:''}.\n${asal==='skrining'?'Hasil cek anemia saya di aplikasi Si DARA menunjukkan potensi '+hitungSkrining().kat+'. Saya ingin konsultasi.':'Saya ingin bertanya tentang: '}`;
+  window.open('https://wa.me/'+no+'?text='+encodeURIComponent(teks),'_blank');
+}
+function simpanSkriningRemaja(){const r=hitungSkrining();tulisR('Log_Skrining',{id:uid('R'),sasaranId:R.id,puskesmas:R.profil.puskesmas,tanggal:ymd(new Date()),skor:r.skor,kategori:r.kat,jawaban:JSON.stringify(JAWAB),oleh:'remaja'});toast('Hasil cek tersimpan');}
+function keluarRemaja(){
+  if(R.out.length&&!confirm(R.out.length+' catatan belum terkirim dan akan hilang. Tetap keluar?'))return;
+  if(!confirm('Keluar dari Si DARA di HP ini? Simpan dulu kode pemulihanmu: '+R.token))return;
+  R=null;localStorage.removeItem(K.rem);keMulai();
+}
+
+/* ---------- notifikasi (Firebase Cloud Messaging) ---------- */
+function fcmSiap(){return CFG.FIREBASE&&CFG.FIREBASE.apiKey&&CFG.VAPID_KEY}
+function muatJS(src){return new Promise((ok,no)=>{const s=document.createElement('script');s.src=src;s.onload=ok;s.onerror=no;document.head.appendChild(s)})}
+function tawarNotif(paksa){
+  if(DEMO||!('Notification' in window))return;
+  if(!paksa&&(R.fcm||Notification.permission==='denied'))return;
+  if(!fcmSiap()){if(paksa)toast('Notifikasi otomatis belum diaktifkan admin. Kamu tetap diingatkan lewat WA.',4000);return}
+  bukaModal(`<div style="text-align:center"><div style="font-size:56px">🔔</div><h2 style="margin:6px 0">Mau diingatkan?</h2><p>Si DARA akan mengirim pengingat setiap <b>Kamis malam</b> dan <b>Jumat pagi</b> supaya kamu tidak lupa minum TTD dan sarapan.</p>
+  <button class="btn penuh besar" onclick="aktifkanNotif()">Ya, ingatkan aku</button><div style="height:8px"></div><button class="btn garis penuh" onclick="tutupModal()">Nanti saja</button></div>`);
+}
+async function aktifkanNotif(){
+  tutupModal();
+  try{
+    const izin=await Notification.requestPermission();if(izin!=='granted'){toast('Izin notifikasi tidak diberikan');render();return}
+    const v='10.12.2';await muatJS(`https://www.gstatic.com/firebasejs/${v}/firebase-app-compat.js`);await muatJS(`https://www.gstatic.com/firebasejs/${v}/firebase-messaging-compat.js`);
+    if(!firebase.apps.length)firebase.initializeApp(CFG.FIREBASE);
+    const reg=await navigator.serviceWorker.ready;
+    const tok=await firebase.messaging().getToken({vapidKey:CFG.VAPID_KEY,serviceWorkerRegistration:reg});
+    if(tok){R.fcm=tok;simpanR();sinkronRemaja();toast('Pengingat aktif 🔔');render()}
+  }catch(e){toast('Notifikasi belum bisa diaktifkan di HP ini. Pengingat tetap dikirim lewat WA.',4000)}
+}
+
+/* =================================================================
+   ======================  MODE PETUGAS  ===========================
+   ================================================================= */
+let USER=muat(K.user,null),DATA=muat(K.data,null)||kosongData(),OUTBOX=muat(K.out,[]);
+function kosongData(){const o={};TABEL.forEach(t=>o[t]=[]);return o}
+function simpanSemua(){simpan(K.data,DATA);simpan(K.out,OUTBOX)}
+function labelPeran(){return USER.peran==='ADMIN'?'Admin Dinkes':USER.peran==='GURU'?'Guru/UKS '+namaSekolah(USER.sekolahId):'PJ Pkm '+USER.puskesmas}
+const kunci=t=>t==='Puskesmas'?'nama':'id';
+function upsertLokal(t,row){const k=kunci(t);const a=DATA[t];const i=a.findIndex(r=>r[k]===row[k]);if(i>=0)a[i]=Object.assign({},a[i],row);else a.push(row)}
+function tulis(t,row){
+  if(USER&&USER.peran!=='ADMIN'&&t!=='Puskesmas')row.puskesmas=row.puskesmas||USER.puskesmas;
+  upsertLokal(t,row);
+  if(!DEMO){const k=kunci(t);const ada=OUTBOX.findIndex(o=>o.tabel===t&&o.row[k]===row[k]);const op={opId:uid('op'),tabel:t,row:Object.assign({},ada>=0?OUTBOX[ada].row:{},row)};if(ada>=0)OUTBOX.splice(ada,1);OUTBOX.push(op)}
+  simpanSemua();perbaruiChip();jadwalP();
+}
+let pJalan=false,pTimer=null;function jadwalP(){clearTimeout(pTimer);pTimer=setTimeout(sinkronPetugas,1500)}
+async function sinkronPetugas(manual){
+  if(DEMO||!USER){if(manual)toast(DEMO?'Mode demo: data tidak dikirim ke server':'');return}
+  if(!CFG.API_URL||!navigator.onLine){perbaruiChip();if(manual)toast('Tidak ada internet. Data tersimpan di HP dan akan dikirim otomatis.');return}
+  if(pJalan)return;pJalan=true;perbaruiChip('sinkron');
+  try{
+    const j=await api({action:'sync',username:USER.username,sesi:USER.sesi,ops:OUTBOX.slice(0,300)});
+    if(!j.ok){if(String(j.pesan).includes('SESI_TIDAK_VALID')){toast('Sesi berakhir, silakan login ulang (online). Data yang belum terkirim tetap aman.',4500);const o=muat(K.offline,{});delete o[USER.username];simpan(K.offline,o);USER=null;localStorage.removeItem(K.user);keMulai()}else if(manual)toast('Gagal sinkron: '+j.pesan);return}
+    const ok=new Set(j.diterima||[]);OUTBOX=OUTBOX.filter(o=>!ok.has(o.opId));
+    const b=kosongData();TABEL.forEach(t=>b[t]=(j.data&&j.data[t])||[]);DATA=b;OUTBOX.forEach(o=>upsertLokal(o.tabel,o.row));
+    simpanSemua();simpan(K.sync,nowIso());if(manual)toast('Sinkron berhasil ✅');if(OUTBOX.length)jadwalP();render();
+  }catch(e){if(manual)toast('Gagal tersambung ke server.')}
+  finally{pJalan=false;perbaruiChip()}
+}
+function perbaruiChip(st){
+  const c=$('#chipSync');if(!c)return;c.classList.remove('off','pending');
+  const antre=MODE==='remaja'?(R?R.out.length:0):OUTBOX.length;let tx='Tersinkron';
+  if(DEMO){tx='Mode demo';c.classList.add('pending')}
+  else if(st==='sinkron'){tx='Menyinkron…';c.classList.add('pending')}
+  else if(!navigator.onLine){tx='Offline'+(antre?' · '+antre+' antre':'');c.classList.add('off')}
+  else if(antre){tx=antre+' belum terkirim';c.classList.add('pending')}
+  $('#chipTx').textContent=tx;
+}
+function sinkronAuto(){if(MODE==='remaja')sinkronRemaja();else if(MODE==='petugas')sinkronPetugas()}
+window.addEventListener('online',()=>{perbaruiChip();sinkronAuto()});window.addEventListener('offline',()=>perbaruiChip());
+setInterval(()=>{if(document.visibilityState==='visible')sinkronAuto()},90000);
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')sinkronAuto()});
+
+/* ---------- akses data ---------- */
+const aktif=r=>String(r.aktif)!=='false';
+const statusAktif=s=>!s.status||s.status==='aktif';
+function sekolahList(){return DATA.Sekolah.filter(aktif).sort((a,b)=>a.nama.localeCompare(b.nama))}
+function namaSekolah(id){const s=DATA.Sekolah.find(x=>x.id===id);return s?s.nama:'-'}
+function sasaranAktif(){return DATA.Sasaran.filter(s=>aktif(s)&&statusAktif(s)).sort((a,b)=>a.nama.localeCompare(b.nama))}
+function sasaranMenunggu(){return DATA.Sasaran.filter(s=>aktif(s)&&s.status==='menunggu')}
+function sudahMinum(sid,j){const l=DATA.Log_Minum.find(x=>x.id===sid+'_'+j);return l&&l.status==='sudah'?l:null}
+function jmlPengingat(sid,j){return DATA.Log_Pengingat.filter(x=>x.sasaranId===sid&&x.jumat===j).length}
+function tautanKonfirmasi(s){return new URL('konfirmasi.html?t='+s.token,location.href.split('#')[0]).href}
+function terdaftar(s,d){return!s.createdAt||jumatDari(new Date(s.createdAt))<=d}
+function infoPkm(){return DATA.Puskesmas.find(p=>p.nama===USER.puskesmas)||{nama:USER.puskesmas}}
+const LBL_SUMBER={remaja:'dicentang di aplikasi','tautan WA':'konfirmasi tautan WA','minum bersama':'minum bersama',guru:'dicatat guru',PJ:'dicatat PJ'};
+function logoKaki(){return`<div class="logos" style="margin:20px 0 4px;opacity:.9"><img class="dg" style="height:40px" src="icons/logo-donggala.png" alt=""><img class="pk" style="height:26px" src="icons/logo-poltekkes-sby.png" alt=""></div><p class="dev" style="margin-top:4px">Developed by <b>Fahmi Hafid</b> (Poltekkes Kemenkes Surabaya)<br>dan <b>Manjilala</b> (Poltekkes Kemenkes Makassar)</p>`}
+
+/* ---------- beranda petugas ---------- */
+function pBeranda(){
+  const j=jumatIni(),S=sasaranAktif(),sd=S.filter(s=>sudahMinum(s.id,j)).length,pct=S.length?Math.round(sd/S.length*100):0,mn=sasaranMenunggu().length;
+  const app=S.filter(s=>DATA.Log_Minum.some(l=>l.sasaranId===s.id&&l.sumber==='remaja')).length;
+  const perSek=sekolahList().map(k=>{const a=S.filter(s=>s.sekolahId===k.id);const b=a.filter(s=>sudahMinum(s.id,j)).length;return{k,n:a.length,b,p:a.length?Math.round(b/a.length*100):0}}).filter(x=>x.n);
+  let h='';
+  if(DEMO)h+=`<div class="banner warn">Mode demo – data contoh, tidak dikirim ke server. <a href="#" onclick="keluarDemo();return false">Keluar demo</a></div>`;
+  if(mn&&USER.peran!=='GURU')h+=`<div class="banner mr" onclick="STATE.sTab='menunggu';location.hash='#sasaran'" style="cursor:pointer">🆕 <b>${mn} remaja</b> mendaftar lewat aplikasi dan menunggu verifikasi. Ketuk untuk memeriksa →</div>`;
+  h+=hari()===4?`<div class="banner info">📅 Besok Jumat. Notifikasi otomatis terkirim ke HP remaja pukul 18.30. Siapkan juga pengingat WA untuk yang belum memasang aplikasi.</div>`
+    :hari()===5?`<div class="banner mr">💊 <b>Hari ini Jumat!</b> Pantau siapa yang sudah minum dan kirim pengingat ke yang belum.</div>`
+    :`<div class="banner info">Periode aktif: <b>Jumat, ${tglIndo(j)}</b>.</div>`;
+  h+=`<div class="grid2"><div class="stat"><div class="n">${S.length}</div><div class="l">${USER.peran==='GURU'?'Siswa terdaftar':'Sasaran aktif'}</div></div><div class="stat ok"><div class="n">${pct}%</div><div class="l">Sudah minum Jumat ini</div></div>
+  <div class="stat ok"><div class="n">${sd}</div><div class="l">Sudah minum</div></div><div class="stat no"><div class="n">${S.length-sd}</div><div class="l">Belum minum</div></div></div>
+  <p class="kecil" style="margin:8px 2px">📱 ${app} dari ${S.length} remaja sudah pernah mencatat sendiri lewat aplikasi.</p>
+  <button class="btn penuh" onclick="STATE.jumat=jumatIni();STATE.tab='belum';location.hash='#pengingat'">💬 Lihat yang belum minum</button><div style="height:12px"></div>
+  <div class="kartu"><h2>Per sekolah – Jumat ${tglIndo(j)}</h2>${perSek.length?perSek.map(x=>`<div style="margin:10px 0"><div class="baris"><div style="flex:1">${esc(x.k.nama)}</div><div class="kecil">${x.b}/${x.n} · ${x.p}%</div></div><div class="bar"><i style="width:${x.p}%"></i></div></div>`).join(''):'<div class="kosong">Belum ada sasaran.</div>'}</div>`;
+  const last=muat(K.sync,null);h+=`<p class="kecil" style="text-align:center">${DEMO?'':(last?'Sinkron terakhir: '+new Date(last).toLocaleString('id-ID'):'Belum pernah sinkron')}${OUTBOX.length?' · '+OUTBOX.length+' data menunggu dikirim':''}</p>`+logoKaki();
+  $('#isi').innerHTML=h;
+}
+
+/* ---------- pengingat ---------- */
+function opsiJumat(){return daftarJumat(8).map(d=>`<option value="${d}" ${d===STATE.jumat?'selected':''}>Jumat, ${tglIndo(d)}${d===jumatIni()?' (ini)':''}</option>`).join('')}
+function opsiSekolah(p,semua){return(semua?'<option value="">Semua sekolah</option>':'')+sekolahList().map(s=>`<option value="${s.id}" ${s.id===p?'selected':''}>${esc(s.nama)}</option>`).join('')}
+function saring(S){if(STATE.sekolah)S=S.filter(s=>s.sekolahId===STATE.sekolah);if(STATE.kelas)S=S.filter(s=>s.kelas===STATE.kelas);return S}
+function pPengingat(){
+  const j=STATE.jumat;let S=sasaranAktif();if(STATE.sekolah)S=S.filter(s=>s.sekolahId===STATE.sekolah);
+  const kls=[...new Set(S.map(s=>s.kelas).filter(Boolean))].sort();if(STATE.kelas&&!kls.includes(STATE.kelas))STATE.kelas='';S=saring(S);
+  const bl=S.filter(s=>!sudahMinum(s.id,j)),sd=S.filter(s=>sudahMinum(s.id,j)),tm=STATE.tab==='belum'?bl:sd;
+  let h=`<div class="filter"><select class="i" onchange="STATE.jumat=this.value;render()">${opsiJumat()}</select>${USER.peran==='GURU'?'':`<select class="i" onchange="STATE.sekolah=this.value;STATE.kelas='';render()">${opsiSekolah(STATE.sekolah,true)}</select>`}
+  ${kls.length?`<select class="i" onchange="STATE.kelas=this.value;render()"><option value="">Semua kelas</option>${kls.map(k=>`<option ${k===STATE.kelas?'selected':''}>${esc(k)}</option>`).join('')}</select>`:''}</div>
+  <div class="tab"><button class="${STATE.tab==='belum'?'aktif':''}" onclick="STATE.tab='belum';render()">Belum minum (${bl.length})</button><button class="${STATE.tab==='sudah'?'aktif':''}" onclick="STATE.tab='sudah';render()">Sudah (${sd.length})</button></div>`;
+  if(STATE.tab==='belum'&&bl.length){
+    h+=`<div class="baris" style="margin-bottom:10px;gap:8px"><button class="btn wa kecil" style="flex:1" onclick="kirimBerikut('remaja')">▶ Berikutnya ke remaja</button><button class="btn sek kecil" style="flex:1" onclick="kirimBerikut('ortu')">▶ Berikutnya ke ortu</button></div>`;
+    if(STATE.kelas)h+=`<button class="btn garis kecil penuh" style="margin-bottom:10px" onclick="minumBersama()">✅ Minum bersama: tandai semua kelas ${esc(STATE.kelas)} sudah minum</button>`;
+  }
+  h+=`<div class="kartu daftar">`;
+  if(!tm.length)h+=`<div class="kosong">${STATE.tab==='belum'?(S.length?'🎉 Semua sudah minum TTD!':'Belum ada sasaran.'):'Belum ada yang tercatat minum.'}</div>`;
+  tm.forEach(s=>{const n=jmlPengingat(s.id,j),m=sudahMinum(s.id,j);
+    h+=`<div class="item"><div class="info"><div class="nm">${esc(s.nama)}${n?`<span class="lencana kng">diingatkan ${n}×</span>`:''}${m?`<span class="lencana ${m.sumber==='remaja'?'ug':'ok'}">${esc(LBL_SUMBER[m.sumber]||m.sumber)}</span>`:''}</div>
+    <div class="sub">${esc(namaSekolah(s.sekolahId))}${s.kelas?' · Kelas '+esc(s.kelas):''}</div></div><div class="aksi">${STATE.tab==='belum'?`
+    <button class="btn wa kecil" ${normWA(s.waRemaja)?'':'disabled'} onclick="kirimWA('${s.id}','remaja')">WA</button><button class="btn sek kecil" ${normWA(s.waOrtu)?'':'disabled'} onclick="kirimWA('${s.id}','ortu')">Ortu</button><button class="btn hijau kecil" onclick="tandai('${s.id}',true)">Sudah</button>`
+    :`<button class="btn garis kecil" onclick="tandai('${s.id}',false)">Batalkan</button>`}</div></div>`});
+  h+=`</div><p class="kecil">Remaja yang mencentang di aplikasi otomatis pindah ke tab "Sudah" setelah sinkron. WA terbuka di aplikasi WhatsApp dengan pesan siap kirim.</p>`;
+  $('#isi').innerHTML=h;
+}
+const TPL_DEFAULT={
+remaja:`Halo {nama} 👋
+Hari ini Jumat, waktunya minum *Tablet Tambah Darah (TTD)* 💊💖
+Sarapan dulu, lalu minum 1 tablet dengan air putih (jangan bersama teh, kopi, atau susu).
+
+Sudah minum? Centang di aplikasi *Si DARA* atau ketuk tautan ini:
+{tautan}
+
+Salam sehat,
+{pj} – Puskesmas {puskesmas}
+#SiDARA #SatuTabletSepekan`,
+ortu:`Selamat pagi Bapak/Ibu 🙏
+Mohon bantu ingatkan ananda *{nama}* ({sekolah}) untuk sarapan dan minum *Tablet Tambah Darah (TTD)* hari Jumat ini.
+TTD membantu mencegah anemia agar ananda tetap sehat dan fokus belajar.
+
+Bila ananda sudah minum, mohon ketuk tautan ini:
+{tautan}
+
+Terima kasih,
+{pj} – Puskesmas {puskesmas}
+#SiDARA`};
+function TPL(){return Object.assign({},TPL_DEFAULT,muat(K.tpl,{}))}
+function isiPesan(s,tj){return TPL()[tj].replace(/\{nama\}/g,s.nama.split(' ')[0]).replace(/\{namalengkap\}/g,s.nama).replace(/\{sekolah\}/g,namaSekolah(s.sekolahId)).replace(/\{tautan\}/g,tautanKonfirmasi(s)).replace(/\{pj\}/g,USER.nama).replace(/\{puskesmas\}/g,s.puskesmas||USER.puskesmas).replace(/\{tanggal\}/g,tglIndo(STATE.jumat))}
+function kirimWA(id,tj){const s=DATA.Sasaran.find(x=>x.id===id);const no=normWA(tj==='ortu'?s.waOrtu:s.waRemaja);if(!no){toast('Nomor WA belum diisi');return}
+  tulis('Log_Pengingat',{id:uid('P'),sasaranId:id,puskesmas:s.puskesmas,jumat:STATE.jumat,tujuan:tj,waktu:nowIso(),oleh:USER.username});window.open('https://wa.me/'+no+'?text='+encodeURIComponent(isiPesan(s,tj)),'_blank');setTimeout(render,300)}
+function kirimBerikut(tj){const j=STATE.jumat;const S=saring(sasaranAktif().filter(s=>!sudahMinum(s.id,j)));const n=S.find(s=>!DATA.Log_Pengingat.some(x=>x.sasaranId===s.id&&x.jumat===j&&x.tujuan===tj)&&normWA(tj==='ortu'?s.waOrtu:s.waRemaja));
+  if(!n){toast('Semua yang punya nomor WA '+(tj==='ortu'?'orang tua':'remaja')+' sudah diingatkan');return}kirimWA(n.id,tj)}
+function tandai(id,ya,sumber){const s=DATA.Sasaran.find(x=>x.id===id);tulis('Log_Minum',{id:id+'_'+STATE.jumat,sasaranId:id,puskesmas:s.puskesmas,jumat:STATE.jumat,status:ya?'sudah':'batal',sumber:sumber||(USER.peran==='GURU'?'guru':'PJ'),waktu:nowIso(),updatedBy:USER.username});if(ya)toast(s.nama.split(' ')[0]+' tercatat sudah minum ✅');render()}
+function minumBersama(){const j=STATE.jumat;const S=saring(sasaranAktif().filter(s=>!sudahMinum(s.id,j)));if(!S.length)return;if(!confirm('Tandai '+S.length+' remaja di kelas '+STATE.kelas+' sudah minum TTD bersama?'))return;
+  S.forEach(s=>tulis('Log_Minum',{id:s.id+'_'+j,sasaranId:s.id,puskesmas:s.puskesmas,jumat:j,status:'sudah',sumber:'minum bersama',waktu:nowIso(),updatedBy:USER.username}));toast(S.length+' remaja tercatat minum bersama ✅');render()}
+
+/* ---------- sasaran ---------- */
+function pSasaran(){
+  const guru=USER.peran==='GURU',mn=sasaranMenunggu();
+  let h='';
+  if(!guru)h+=`<div class="tab"><button class="${STATE.sTab==='aktif'?'aktif':''}" onclick="STATE.sTab='aktif';render()">Terverifikasi</button><button class="${STATE.sTab==='menunggu'?'aktif':''}" onclick="STATE.sTab='menunggu';render()">Menunggu verifikasi (${mn.length})</button></div>`;
+  if(!guru&&STATE.sTab==='menunggu'){
+    h+=`<p class="kecil">Remaja yang mendaftar sendiri lewat aplikasi. Periksa nama, sekolah, dan kelasnya, lalu setujui. Catatan minum TTD mereka sudah tersimpan sejak mendaftar.</p><div class="kartu daftar">`;
+    if(!mn.length)h+=`<div class="kosong">Tidak ada pendaftaran baru.</div>`;
+    mn.forEach(s=>h+=`<div class="item"><div class="info"><div class="nm">${esc(s.nama)}</div><div class="sub">${esc(s.sekolahId?namaSekolah(s.sekolahId):(s.sekolahBaru+' (sekolah baru)'))}${s.kelas?' · Kelas '+esc(s.kelas):''}<br>Ortu: ${esc(s.waOrtu||'-')} · daftar ${s.createdAt?new Date(s.createdAt).toLocaleDateString('id-ID'):''}${s.izinOrtu==='ya'?' · izin ortu ✔':''}</div></div>
+      <div class="aksi"><button class="btn hijau kecil" onclick="verifikasi('${s.id}',true)">Setujui</button><button class="btn garis kecil" onclick="verifikasi('${s.id}',false)">Tolak</button></div></div>`);
+    $('#isi').innerHTML=h+`</div>`;return;
+  }
+  let S=sasaranAktif();if(STATE.sekolah&&!guru)S=S.filter(s=>s.sekolahId===STATE.sekolah);
+  const q=STATE.cari.toLowerCase();if(q)S=S.filter(s=>s.nama.toLowerCase().includes(q)||String(s.kelas).toLowerCase().includes(q));
+  const jj=daftarJumat(8).reverse();
+  if(!guru)h+=`<div class="baris" style="gap:8px;margin-bottom:10px"><button class="btn" style="flex:1" onclick="formSasaran()">＋ Tambah sasaran</button><button class="btn sek" onclick="formImpor()">Impor CSV</button></div>`;
+  h+=`<div class="filter"><input class="i" placeholder="Cari nama / kelas…" value="${esc(STATE.cari)}" oninput="STATE.cari=this.value;clearTimeout(window._c);window._c=setTimeout(()=>{render();const e=document.querySelector('.filter input');e.focus();e.setSelectionRange(e.value.length,e.value.length)},300)">${guru?'':`<select class="i" onchange="STATE.sekolah=this.value;render()">${opsiSekolah(STATE.sekolah,true)}</select>`}</div><div class="kartu daftar">`;
+  if(!S.length)h+=`<div class="kosong">Belum ada sasaran.</div>`;
+  S.forEach(s=>{const app=DATA.Log_Minum.some(l=>l.sasaranId===s.id&&l.sumber==='remaja');
+    h+=`<div class="item" onclick="detailSasaran('${s.id}')" style="cursor:pointer"><div class="info"><div class="nm">${esc(s.nama)}${app?'<span class="lencana ug">📱 aplikasi</span>':''}</div><div class="sub">${esc(namaSekolah(s.sekolahId))}${s.kelas?' · Kelas '+esc(s.kelas):''}</div>
+    <div style="margin-top:4px">${jj.map(d=>`<span class="titik ${sudahMinum(s.id,d)?'ok':'no'}"></span>`).join('')}</div></div><div>›</div></div>`});
+  h+=`</div><p class="kecil">Kotak = status minum 8 Jumat terakhir (kiri paling lama). Lencana 📱 = remaja memakai aplikasi Si DARA.</p>`;
+  $('#isi').innerHTML=h;
+}
+function verifikasi(id,ok){
+  const s=DATA.Sasaran.find(x=>x.id===id);
+  if(ok&&!s.sekolahId){ // sekolah baru dari pendaftaran → buat/cocokkan sekolah
+    const ada=DATA.Sekolah.find(k=>k.nama.toLowerCase()===String(s.sekolahBaru).toLowerCase());s.sekolahId=ada?ada.id:buatSekolah(s.sekolahBaru)}
+  if(!ok&&!confirm('Tolak pendaftaran '+s.nama+'?'))return;
+  tulis('Sasaran',Object.assign({},s,{status:ok?'aktif':'ditolak',updatedAt:nowIso(),updatedBy:USER.username}));toast(ok?s.nama.split(' ')[0]+' terverifikasi ✅':'Pendaftaran ditolak');render();
+}
+function formSasaran(id){
+  const s=id?DATA.Sasaran.find(x=>x.id===id):{};
+  bukaModal(`<div class="kepala"><h2>${id?'Ubah':'Tambah'} sasaran</h2><button class="x" onclick="tutupModal()">×</button></div>
+  <label class="f">Nama remaja putri *</label><input id="fNama" class="i" value="${esc(s.nama||'')}">
+  <label class="f">Sekolah *</label><select id="fSek" class="i">${opsiSekolah(s.sekolahId||STATE.sekolah,false)}<option value="__baru">＋ Sekolah baru…</option></select><input id="fSekBaru" class="i hidden" style="margin-top:6px" placeholder="Nama sekolah baru">
+  <label class="f">Kelas</label><input id="fKelas" class="i" value="${esc(s.kelas||'')}"><label class="f">No. WA remaja</label><input id="fWaR" class="i" inputmode="tel" value="${esc(s.waRemaja||'')}"><label class="f">No. WA orang tua/wali</label><input id="fWaO" class="i" inputmode="tel" value="${esc(s.waOrtu||'')}">
+  <p class="kecil">Cukup data seperlunya. Tidak perlu NIK, alamat, atau tanggal lahir.</p><button class="btn penuh" onclick="simpanSasaran('${id||''}')">Simpan</button>
+  ${id?`<div style="height:8px"></div><button class="btn garis penuh" onclick="nonaktifkan('${id}')">Nonaktifkan (lulus/pindah)</button>`:''}`);
+  const sel=$('#fSek');const c=()=>$('#fSekBaru').classList.toggle('hidden',sel.value!=='__baru');sel.onchange=c;if(!sekolahList().length)sel.value='__baru';c();
+}
+function buatSekolah(nama){const a=DATA.Sekolah.find(s=>s.nama.toLowerCase()===nama.toLowerCase()&&aktif(s));if(a)return a.id;const id=uid('K');tulis('Sekolah',{id,puskesmas:USER.puskesmas,nama,aktif:'true',updatedAt:nowIso(),updatedBy:USER.username});return id}
+function simpanSasaran(id){const nama=$('#fNama').value.trim();if(!nama){toast('Nama wajib diisi');return}let sek=$('#fSek').value;if(sek==='__baru'){const nb=$('#fSekBaru').value.trim();if(!nb){toast('Isi nama sekolah');return}sek=buatSekolah(nb)}
+  const l=id?DATA.Sasaran.find(x=>x.id===id):null;
+  tulis('Sasaran',Object.assign({},l||{},{id:id||uid('S'),puskesmas:l?l.puskesmas:USER.puskesmas,sekolahId:sek,nama,kelas:$('#fKelas').value.trim(),waRemaja:$('#fWaR').value.trim(),waOrtu:$('#fWaO').value.trim(),token:l?l.token:acak(14),status:l?l.status||'aktif':'aktif',aktif:'true',sumberDaftar:l?l.sumberDaftar:'PJ',createdAt:l&&l.createdAt?l.createdAt:nowIso(),updatedAt:nowIso(),updatedBy:USER.username}));tutupModal();toast('Tersimpan');render()}
+function nonaktifkan(id){if(!confirm('Nonaktifkan sasaran ini? Riwayatnya tetap tersimpan.'))return;const s=DATA.Sasaran.find(x=>x.id===id);tulis('Sasaran',Object.assign({},s,{aktif:'false',updatedAt:nowIso()}));tutupModal();render()}
+function detailSasaran(id){
+  const s=DATA.Sasaran.find(x=>x.id===id);const jj=daftarJumat(12);const n=jj.filter(d=>sudahMinum(id,d)).length;const sk=DATA.Log_Skrining.filter(x=>x.sasaranId===id).sort((a,b)=>b.tanggal.localeCompare(a.tanggal));
+  bukaModal(`<div class="kepala"><h2>${esc(s.nama)}</h2><button class="x" onclick="tutupModal()">×</button></div><div class="kecil">${esc(namaSekolah(s.sekolahId))}${s.kelas?' · Kelas '+esc(s.kelas):''} · daftar ${s.sumberDaftar==='mandiri'?'mandiri lewat aplikasi':'oleh PJ'}</div>
+  <div class="sep"></div><h3>Riwayat 12 Jumat terakhir</h3><p>${n} dari 12 Jumat tercatat minum (${Math.round(n/12*100)}%)</p>
+  <div class="skala"><table class="rk"><tr>${jj.slice().reverse().map(d=>`<th>${d.slice(8)}/${d.slice(5,7)}</th>`).join('')}</tr><tr>${jj.slice().reverse().map(d=>`<td>${sudahMinum(id,d)?'💊':'–'}</td>`).join('')}</tr></table></div>
+  <div class="sep"></div><h3>Cek anemia</h3>${sk.length?sk.map(x=>`<div class="kecil">${tglIndo(x.tanggal)} – skor ${esc(x.skor)} · <b>${esc(x.kategori)}</b> (${x.oleh==='remaja'?'cek mandiri':'oleh petugas'})</div>`).join(''):'<div class="kecil">Belum pernah.</div>'}
+  ${USER.peran==='GURU'?'':`<div class="sep"></div><h3>Kode pemulihan / tautan</h3><p class="kecil">Kode untuk masuk di HP baru: <b style="font-family:monospace">${esc(s.token)}</b></p>
+  <button class="btn sek kecil" onclick="navigator.clipboard&&navigator.clipboard.writeText('${tautanKonfirmasi(s)}').then(()=>toast('Tautan konfirmasi disalin'))">Salin tautan konfirmasi</button>
+  <div class="sep"></div><button class="btn penuh" onclick="formSasaran('${id}')">Ubah data</button>`}`);
+}
+function formImpor(){bukaModal(`<div class="kepala"><h2>Impor sasaran (CSV)</h2><button class="x" onclick="tutupModal()">×</button></div><p class="kecil">Kolom berurutan: <b>nama, sekolah, kelas, wa_remaja, wa_ortu</b>. Baris pertama judul kolom.</p>
+  <input type="file" id="fCsv" accept=".csv,text/csv" class="i"><label class="f">atau tempel di sini</label><textarea id="tCsv" class="i" placeholder="nama,sekolah,kelas,wa_remaja,wa_ortu"></textarea><div style="height:10px"></div><button class="btn penuh" onclick="prosesImpor()">Impor</button>`)}
+function parseCSV(t){const l0=t.split('\n')[0];const sep=(l0.match(/;/g)||[]).length>(l0.match(/,/g)||[]).length?';':',';return t.split(/\r?\n/).filter(x=>x.trim()).map(l=>{const o=[];let c='',q=false;for(const ch of l){if(ch==='"')q=!q;else if(ch===sep&&!q){o.push(c);c=''}else c+=ch}o.push(c);return o.map(x=>x.trim())})}
+async function prosesImpor(){let t=$('#tCsv').value;const f=$('#fCsv').files[0];if(f)t=await f.text();const rows=parseCSV(t||'');if(rows.length<2){toast('Data kosong');return}let n=0;
+  rows.slice(1).forEach(r=>{if(!r[0])return;tulis('Sasaran',{id:uid('S'),puskesmas:USER.puskesmas,sekolahId:buatSekolah(r[1]||'Tanpa sekolah'),nama:r[0],kelas:r[2]||'',waRemaja:r[3]||'',waOrtu:r[4]||'',token:acak(14),status:'aktif',aktif:'true',sumberDaftar:'PJ',createdAt:nowIso(),updatedAt:nowIso(),updatedBy:USER.username});n++});tutupModal();toast(n+' sasaran diimpor');render()}
+
+/* ---------- rekap ---------- */
+function pRekap(){
+  const jj=daftarJumat(8).reverse(),S=sasaranAktif(),sek=sekolahList().filter(k=>S.some(s=>s.sekolahId===k.id));
+  const persen=(a,d)=>{a=a.filter(s=>terdaftar(s,d));return a.length?Math.round(a.filter(s=>sudahMinum(s.id,d)).length/a.length*100):'–'};
+  const kat={patuh:0,sedang:0,rendah:0};S.forEach(s=>{const w=jj.filter(d=>terdaftar(s,d));if(!w.length)return;const p=w.filter(d=>sudahMinum(s.id,d)).length/w.length*100;kat[p>=90?'patuh':p>=60?'sedang':'rendah']++});
+  const tot=(kat.patuh+kat.sedang+kat.rendah)||1;
+  const sumber={};DATA.Log_Minum.filter(l=>l.status==='sudah'&&jj.includes(l.jumat)&&S.some(s=>s.id===l.sasaranId)).forEach(l=>{const k=LBL_SUMBER[l.sumber]||l.sumber;sumber[k]=(sumber[k]||0)+1});
+  const tS=Object.values(sumber).reduce((a,b)=>a+b,0)||1;
+  $('#isi').innerHTML=`<div class="kartu"><h2>Kepatuhan 8 Jumat terakhir</h2><p class="kecil">Dihitung sejak sasaran terdaftar. Patuh ≥90% · Sedang 60–89% · Rendah &lt;60%</p>
+  <div class="grid2" style="grid-template-columns:1fr 1fr 1fr"><div class="stat ok"><div class="n">${Math.round(kat.patuh/tot*100)}%</div><div class="l">Patuh (${kat.patuh})</div></div><div class="stat"><div class="n" style="color:#b45309">${Math.round(kat.sedang/tot*100)}%</div><div class="l">Sedang (${kat.sedang})</div></div><div class="stat no"><div class="n">${Math.round(kat.rendah/tot*100)}%</div><div class="l">Rendah (${kat.rendah})</div></div></div></div>
+  <div class="kartu"><h2>% sudah minum per Jumat</h2><div class="skala"><table class="rk"><tr><th>Sekolah</th>${jj.map(d=>`<th>${d.slice(8)}/${d.slice(5,7)}</th>`).join('')}</tr>${sek.map(k=>{const a=S.filter(s=>s.sekolahId===k.id);return`<tr><td>${esc(k.nama)}</td>${jj.map(d=>`<td>${persen(a,d)}</td>`).join('')}</tr>`}).join('')}<tr style="font-weight:700"><td>Total</td>${jj.map(d=>`<td>${persen(S,d)}</td>`).join('')}</tr></table></div></div>
+  <div class="kartu"><h2>Sumber pencatatan</h2>${Object.entries(sumber).map(([k,v])=>`<div style="margin:8px 0"><div class="baris"><div style="flex:1">${esc(k)}</div><div class="kecil">${v} · ${Math.round(v/tS*100)}%</div></div><div class="bar"><i style="width:${Math.round(v/tS*100)}%"></i></div></div>`).join('')||'<div class="kecil">Belum ada data.</div>'}<p class="kecil">Centang mandiri di aplikasi adalah laporan remaja sendiri; verifikasi guru/minum bersama memperkuat keakuratan.</p></div>
+  <div class="kartu"><h2>Unduh data</h2><button class="btn sek penuh" onclick="unduhRekap()">⬇ Rekap per sasaran (8 Jumat)</button><div style="height:8px"></div><button class="btn garis penuh" onclick="unduhSkrining()">⬇ Data cek anemia</button></div>`;
+}
+function unduhCSV(n,rows){const t=rows.map(r=>r.map(x=>'"'+String(x==null?'':x).replace(/"/g,'""')+'"').join(';')).join('\r\n');const a=document.createElement('a');a.href=URL.createObjectURL(new Blob(['﻿'+t],{type:'text/csv'}));a.download=n;a.click()}
+function unduhRekap(){const jj=daftarJumat(8).reverse();const rows=[['Puskesmas','Sekolah','Kelas','Nama','Pakai aplikasi',...jj,'Jumlah minum','% minum']];sasaranAktif().forEach(s=>{const v=jj.map(d=>terdaftar(s,d)?(sudahMinum(s.id,d)?1:0):'');const w=v.filter(x=>x!=='');const n=w.reduce((a,b)=>a+b,0);rows.push([s.puskesmas,namaSekolah(s.sekolahId),s.kelas,s.nama,DATA.Log_Minum.some(l=>l.sasaranId===s.id&&l.sumber==='remaja')?'ya':'tidak',...v,n,w.length?Math.round(n/w.length*100):''])});unduhCSV('rekap-sidara-'+jumatIni()+'.csv',rows)}
+function unduhSkrining(){const rows=[['Tanggal','Puskesmas','Sekolah','Kelas','Nama','Skor','Kategori','Oleh']];DATA.Log_Skrining.forEach(x=>{const s=DATA.Sasaran.find(a=>a.id===x.sasaranId)||{};rows.push([x.tanggal,x.puskesmas,namaSekolah(s.sekolahId),s.kelas,s.nama||'',x.skor,x.kategori,x.oleh])});unduhCSV('cek-anemia-sidara.csv',rows)}
+function simpanSkriningPetugas(){const r=hitungSkrining();const s=DATA.Sasaran.find(x=>x.id===STATE.skrSasaran);if(!s)return;tulis('Log_Skrining',{id:uid('R'),sasaranId:s.id,puskesmas:s.puskesmas,tanggal:ymd(new Date()),skor:r.skor,kategori:r.kat,jawaban:JSON.stringify(JAWAB),oleh:USER.username});toast('Tersimpan');JAWAB={};STATE.skrSasaran='';render();scrollTo(0,0)}
+
+/* ---------- pengaturan ---------- */
+function bukaPengaturan(){
+  if(MODE==='remaja'){location.hash='#profil';return}
+  if(MODE!=='petugas')return;
+  const t=TPL(),last=muat(K.sync,null),pk=infoPkm();
+  bukaModal(`<div class="kepala"><h2>⚙️ Pengaturan</h2><button class="x" onclick="tutupModal()">×</button></div><div class="kecil">${esc(USER.nama)} (${esc(USER.username)}) · ${esc(labelPeran())}</div>
+  ${USER.peran==='PJ'?`<div class="sep"></div><h3>💬 Nomor WA konsultasi puskesmas</h3><p class="kecil">Nomor ini dipakai tombol "Chat Petugas" di HP semua remaja wilayah Puskesmas ${esc(USER.puskesmas)}.</p>
+  <label class="f">Nomor WA petugas</label><input id="pWa" class="i" inputmode="tel" value="${esc(pk.waKonsultasi||'')}" placeholder="08…">
+  <label class="f">Jam layanan</label><input id="pJam" class="i" value="${esc(pk.jamLayanan||'')}" placeholder="mis. Senin–Sabtu 08.00–14.00">
+  <div style="height:8px"></div><button class="btn penuh" onclick="simpanKonsultasi()">Simpan nomor konsultasi</button>`:''}
+  <div class="sep"></div><h3>Sinkronisasi</h3><p class="kecil">Status: ${DEMO?'Mode demo':(navigator.onLine?'Online':'Offline')} · Antrean: ${OUTBOX.length} data<br>${last?'Terakhir: '+new Date(last).toLocaleString('id-ID'):'Belum pernah sinkron'}</p><button class="btn sek penuh" onclick="sinkronPetugas(true)">🔄 Sinkron sekarang</button>
+  <div class="sep"></div><h3>Template pesan WhatsApp</h3><p class="kecil">Kode isian: {nama} {namalengkap} {sekolah} {tautan} {pj} {puskesmas} {tanggal}</p>
+  <label class="f">Pesan ke remaja</label><textarea id="tplR" class="i">${esc(t.remaja)}</textarea><label class="f">Pesan ke orang tua</label><textarea id="tplO" class="i">${esc(t.ortu)}</textarea>
+  <div class="baris" style="gap:8px;margin-top:8px"><button class="btn" style="flex:1" onclick="simpan(K.tpl,{remaja:$('#tplR').value,ortu:$('#tplO').value});toast('Template disimpan')">Simpan template</button><button class="btn garis" onclick="localStorage.removeItem(K.tpl);tutupModal();toast('Template bawaan dipakai')">Bawaan</button></div>
+  <div class="sep"></div><button class="btn garis penuh" onclick="keluarPetugas()">Keluar</button>${logoKaki()}`);
+}
+function simpanKonsultasi(){const w=$('#pWa').value.trim();if(w&&!normWA(w)){toast('Nomor belum benar');return}tulis('Puskesmas',{nama:USER.puskesmas,waKonsultasi:w,jamLayanan:$('#pJam').value.trim(),updatedAt:nowIso(),updatedBy:USER.username});toast('Nomor konsultasi disimpan ✅')}
+function keluarPetugas(){if(DEMO)return keluarDemo();if(OUTBOX.length&&!confirm(OUTBOX.length+' data belum terkirim. Data tetap tersimpan di HP ini dan dikirim saat Anda masuk lagi dengan akun yang sama. Tetap keluar?'))return;if(!OUTBOX.length&&!confirm('Keluar dari aplikasi?'))return;USER=null;localStorage.removeItem(K.user);tutupModal();keMulai()}
+function keluarDemo(){DEMO=false;simpan(K.demo,false);if(MODE==='remaja'){R=null;localStorage.removeItem(K.rem)}else{USER=null;localStorage.removeItem(K.user);DATA=kosongData();OUTBOX=[];simpanSemua();localStorage.removeItem(K.owner)}tutupModal();keMulai()}
+
+/* ---------- login petugas ---------- */
+$('#lgBtn').onclick=async()=>{
+  const u=$('#lgUser').value.trim().toLowerCase(),p=$('#lgPin').value.trim(),msg=$('#lgMsg');if(!u||!p){msg.textContent='Isi username dan PIN';return}
+  const h=await sha('dara:'+u+':'+p),off=muat(K.offline,{});
+  if(!navigator.onLine||!CFG.API_URL){const s=off[u];if(s&&s.h===h){masukPetugas(s.user);toast('Masuk mode offline');return}msg.textContent=!CFG.API_URL?'URL server belum diatur di config.js. Gunakan Mode Demo untuk mencoba.':'Login pertama harus tersambung internet.';return}
+  msg.textContent='Memeriksa…';$('#lgBtn').disabled=true;
+  try{const j=await api({action:'login',username:u,pin:p});if(!j.ok){msg.textContent=j.pesan;return}off[u]={h,user:j.user};simpan(K.offline,off);msg.textContent='';masukPetugas(j.user);sinkronPetugas()}
+  catch(e){const s=off[u];if(s&&s.h===h){masukPetugas(s.user);toast('Server tidak terjangkau, masuk mode offline');return}msg.textContent='Gagal tersambung ke server.'}
+  finally{$('#lgBtn').disabled=false}
+};
+$('#lgPin').addEventListener('keydown',e=>{if(e.key==='Enter')$('#lgBtn').click()});
+function masukPetugas(u){DEMO=false;simpan(K.demo,false);if(muat(K.owner,null)!==u.username){DATA=kosongData();OUTBOX=[];localStorage.removeItem(K.sync)}else{DATA=muat(K.data,null)||kosongData();OUTBOX=muat(K.out,[])}
+  USER=u;simpan(K.user,USER);simpan(K.owner,u.username);simpanSemua();MODE='petugas';simpan(K.mode,MODE);location.hash='#beranda';mulaiApp()}
+
+/* ---------- data demo ---------- */
+function acakDemo(){let s=7;return()=>{s=(s*9301+49297)%233280;return s/233280}}
+function dataDemo(){
+  const rnd=acakDemo(),d=kosongData(),now=new Date(),jj=daftarJumat(10),awal=new Date(jj[jj.length-1]+'T08:00:00').toISOString();
+  [['K1','SMPN 1 Banawa'],['K2','SMAN 1 Banawa'],['K3','MTs Al-Khairaat Donggala']].forEach(([id,nama])=>d.Sekolah.push({id,puskesmas:'Donggala',nama,aktif:'true'}));
+  d.Puskesmas.push({nama:'Donggala',waKonsultasi:'081234500000',jamLayanan:'Senin–Sabtu 08.00–14.00'});
+  const nama=['Siti Aminah','Nur Fadilah','Putri Ayu','Rahmawati','Dewi Lestari','Aisyah Putri','Fitriani','Nurhaliza','Sri Wahyuni','Andi Tenri','Wulan Sari','Indah Permata','Salsabila','Nabila Zahra','Rini Anggraini'];
+  const kls=['VII A','VIII A','X IPA','XI IPS','VIII B'];
+  nama.forEach((n,i)=>{const id='S'+i;d.Sasaran.push({id,puskesmas:'Donggala',sekolahId:['K1','K2','K3'][i%3],nama:n,kelas:kls[i%5],waRemaja:'0812000000'+pad(i),waOrtu:i%3?'0852000000'+pad(i):'',token:'demo'+i+'abcdefghij',status:'aktif',aktif:'true',sumberDaftar:i%2?'mandiri':'PJ',createdAt:awal});
+    jj.forEach((j,w)=>{const pel=[.92,.65,.35][i%3];if(w>0&&rnd()<pel||w===0&&i%4===0)d.Log_Minum.push({id:id+'_'+j,sasaranId:id,puskesmas:'Donggala',jumat:j,status:'sudah',sumber:['remaja','minum bersama','tautan WA','PJ'][Math.floor(rnd()*4)],waktu:awal})})});
+  [['Maya Sari','K1','VII B'],['Ayu Lestari','',"IX A"]].forEach(([n,k,c],i)=>d.Sasaran.push({id:'N'+i,puskesmas:'Donggala',sekolahId:k,sekolahBaru:k?'':'SMPN 3 Banawa',nama:n,kelas:c,waRemaja:'',waOrtu:'0852111100'+i,token:'baru'+i+'xxxxxxxxxx',status:'menunggu',izinOrtu:'ya',aktif:'true',sumberDaftar:'mandiri',createdAt:now.toISOString()}));
+  return d;
+}
+$('#lgDemo').onclick=()=>{if(OUTBOX.length&&!confirm('Masih ada data akun sebelumnya yang belum terkirim. Mode demo akan menghapusnya dari HP ini. Lanjut?'))return;
+  localStorage.removeItem(K.owner);DEMO=true;simpan(K.demo,true);USER={username:'demo',nama:'PJ Rematri (Demo)',peran:'PJ',puskesmas:'Donggala',sesi:''};simpan(K.user,USER);DATA=dataDemo();OUTBOX=[];simpanSemua();MODE='petugas';simpan(K.mode,MODE);location.hash='#beranda';mulaiApp()};
+function demoRemaja(){
+  DEMO=true;simpan(K.demo,true);const jj=daftarJumat(10),rnd=acakDemo();
+  R={id:'S0',token:'demo0abcdefghij',profil:{id:'S0',nama:'Siti Aminah',puskesmas:'Donggala',namaSekolah:'SMPN 1 Banawa',kelas:'VIII A',waOrtu:'085200000000',status:'aktif'},baru:false,
+    minum:jj.slice(1,6).map(j=>({id:'S0_'+j,jumat:j,status:'sudah',sumber:'remaja'})).concat(jj.slice(7,9).map(j=>({id:'S0_'+j,jumat:j,status:'sudah',sumber:'minum bersama'}))),skrining:[],pkm:{nama:'Donggala',waKonsultasi:'081234500000',jamLayanan:'Senin–Sabtu 08.00–14.00'},out:[],fcm:'',lastSync:nowIso()};
+  simpanR();MODE='remaja';simpan(K.mode,MODE);location.hash='#beranda';mulaiApp();
+}
+
+/* =================================================================
+   START
+   ================================================================= */
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+if(MODE==='remaja'&&R)mulaiApp();
+else if(MODE==='petugas'&&USER&&(DEMO||USER.sesi))mulaiApp();
+else{MODE=null;tampilLayar('vSambut')}
+sinkronAuto();
+</script>
+</body>
+</html>

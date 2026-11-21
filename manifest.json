@@ -1,0 +1,16 @@
+{
+  "name": "Si DARA – Dara Sehat, Masa Depan Hebat",
+  "short_name": "Si DARA",
+  "description": "Aplikasi pendamping minum Tablet Tambah Darah remaja putri Kabupaten Donggala",
+  "start_url": "./index.html#beranda",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#fdf7fb",
+  "theme_color": "#e6196b",
+  "lang": "id",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

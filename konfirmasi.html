@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#e6196b">
+<title>Si DARA – Konfirmasi Minum TTD</title>
+<link rel="icon" href="icons/icon-192.png">
+<script src="config.js"></script>
+<style>
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:linear-gradient(160deg,#ffe4ef,#efe7fb);color:#1f2937;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box}
+.k{background:#fff;border-radius:24px;box-shadow:0 10px 30px rgba(124,92,196,.18);padding:26px 22px;max-width:400px;width:100%;text-align:center}
+.logos{display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:12px}.logos .dg{height:46px}.logos .pk{height:30px}
+.brand{font-weight:800;font-size:20px;background:linear-gradient(90deg,#e6196b,#7c5cc4);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ik{font-size:62px;line-height:1;margin-top:8px}
+h1{color:#e6196b;font-size:22px;margin:10px 0 6px}
+p{margin:6px 0;color:#4b5563}
+.tips{background:#fff5f9;border-radius:14px;padding:12px 14px;text-align:left;font-size:14px;margin-top:16px}.tips b{color:#c2185b}
+.btn{display:block;margin-top:14px;background:linear-gradient(90deg,#e6196b,#7c5cc4);color:#fff;text-decoration:none;padding:12px;border-radius:14px;font-weight:700}
+.dev{font-size:11px;color:#6b7280;margin-top:14px;line-height:1.5}
+.putar{width:40px;height:40px;border:4px solid #fbcfe8;border-top-color:#e6196b;border-radius:50%;animation:p 1s linear infinite;margin:10px auto}@keyframes p{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="k" id="k"><div class="putar"></div><p>Mencatat konfirmasi…</p></div>
+<script>
+(async function(){
+  const k=document.getElementById('k');
+  const t=new URLSearchParams(location.search).get('t');
+  const api=(window.DARA_CONFIG||{}).API_URL;
+  const kepala=`<div class="logos"><img class="dg" src="icons/logo-donggala.png" alt=""><img class="pk" src="icons/logo-poltekkes-sby.png" alt=""></div><div class="brand">Si DARA</div>`;
+  const tips=`<div class="tips">💡 <b>Tips minum TTD</b><br>• Sarapan dulu supaya tidak mual<br>• Pakai air putih atau jus buah, jangan teh/kopi/susu<br>• Feses agak hitam itu normal</div>
+  <a class="btn" href="index.html">Buka aplikasi Si DARA</a>
+  <div class="dev">Developed by Fahmi Hafid (Poltekkes Kemenkes Surabaya)<br>dan Manjilala (Poltekkes Kemenkes Makassar)</div>`;
+  const bersih=s=>String(s||'').replace(/[<>&]/g,'');
+  const tampil=(ik,j,p)=>k.innerHTML=`${kepala}<div class="ik">${ik}</div><h1>${j}</h1><p>${p}</p>${tips}`;
+  if(!t||!api){tampil('⚠️','Tautan tidak lengkap','Minta tautan baru ke petugas puskesmas.');return}
+  if(!navigator.onLine){tampil('📶','Belum tersambung internet','Buka lagi tautan ini saat ada sinyal ya.');return}
+  try{
+    const j=await (await fetch(api+'?action=konfirmasi&t='+encodeURIComponent(t))).json();
+    if(j.ok){const tgl=new Date(j.jumat+'T00:00:00').toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'});
+      tampil('💪💖','Terima kasih, '+bersih(j.nama)+'!','Kamu tercatat sudah minum TTD untuk Jumat, '+tgl+'. Satu tablet sepekan, sampai jumpa Jumat depan!');}
+    else tampil('⚠️','Belum berhasil',bersih(j.pesan||'Coba lagi nanti.'));
+  }catch(e){tampil('📶','Gagal tersambung','Periksa sinyal internet lalu buka lagi tautan ini.')}
+})();
+</script>
+</body>
+</html>
